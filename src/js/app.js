@@ -1,4 +1,18 @@
+"use strict";
+
 //ADD CLASSNAMES
+
+//ADD BUTTONS
+
+const calcButton = document.getElementById('calcButton')
+const pdfButton = document.getElementById('pdfButton')
+
+const maleRatioAtt = document.getElementById('maleRatio')
+const femaleRatioAtt = document.getElementById('femaleRatio')
+const occNumAtt = document.getElementById('occNum')
+const resultParagraph = document.getElementById('resultsPara')
+
+
 
 //ADD OCCUPANCYCALCULATOR
 
@@ -15,7 +29,7 @@ let femaleNum;
 let maleRatio;
 let femaleRatio;
 
-defaultRatio = 60
+let defaultRatio = 60
 maleRatio = defaultRatio
 femaleRatio = defaultRatio
 
@@ -33,5 +47,28 @@ femaleNum = occupancy * femaleRatio / 100
 
 
 //ADD TOILETCALCULATOR
+
+calcButton.addEventListener('click', function(){
+    console.log('clicked calc');
+    maleRatio = maleRatioAtt.value
+    femaleRatio = femaleRatioAtt.value
+    occupancy = occNumAtt.value
+    //console.log(maleRatio)
+    //console.log(femaleRatio)
+    //console.log(occupancy)
+    maleNum = occupancy * maleRatio / 100
+    femaleNum = occupancy * femaleRatio / 100
+    //console.log(maleNum, femaleNum)
+    resultParagraph.innerHTML = null
+    resultParagraph.innerHTML = `<p>Based on ${occupancy} occupants number, at ${maleRatio}/${femaleRatio} ratio</p>
+    <p>male toilet number is: ${maleNum}</p> <p>female toilet number is: ${femaleNum}</p>`
+
+
+
+  });
+
+  pdfButton.addEventListener('click', function(){
+    console.log('clicked pdf');
+  });
 
 //ADD BLOCKARRANGER

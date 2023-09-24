@@ -10,12 +10,15 @@
   <body>
     <h1>Toilet provisions calculator</h1>
     <h3>based on BS 6465 part1 March 2006</h3>
-    <p>Estimated occupancy:</p>
-    <p>Male / Female split:</p>
+    <p>Estimated occupancy: <input type="number" id='occNum' min="1" value="100" step="1" oninput="this.value = Math.round(this.value)" required></p> 
+    <p>Male <input type="number" id="maleRatio" value="60" min="0" max="100" step="1" oninput="this.value = Math.round(this.value)" required>% / Female <input type="number" id="femaleRatio" value="60" min="0" step="1" max="100" oninput="this.value = Math.round(this.value)" required>% ratio
+    
     <p>Results:</p>
+    <div id="resultsPara"> <p>Click Calculate button to get results</p> </div>
     <p>Arrangement:</p>
     <p>Notes:</p>
-    <button>Get PDF</button>
+    <button id="calcButton">Calculate</button>
+    <button id="pdfButton">Get PDF</button>
     
   <script src="./src/js/app.js" type="module"></script>
   </body>
