@@ -11,6 +11,7 @@ const maleRatioAtt = document.getElementById('maleRatio')
 const femaleRatioAtt = document.getElementById('femaleRatio')
 const occNumAtt = document.getElementById('occNum')
 const resultParagraph = document.getElementById('resultsPara')
+const arrangeParagraph = document.getElementById('arrangePara')
 
 
 
@@ -43,8 +44,7 @@ femaleRatio = defaultRatio
 //maleRatio = prompt()
 //femaleRatio = prompt()
 
-maleNum = occupancy * maleRatio / 100
-femaleNum = occupancy * femaleRatio / 100
+
 
 // console.log('occupancy is: ', occupancy)
 // console.log('ratios are: Male(',maleRatio,') and Female(', femaleRatio, ')')
@@ -70,33 +70,67 @@ function calcAltItems(num){
     result = num<=15 ? [1,1,1] : num<=30 ? [2,1,2] : num<=45 ? [2,2,2] : num<=60 ? [3,2,3] : num<=75 ? [3,3,3] : num<=90 ? [4,3,4] : [4,4,4]
     over100 = num-100 > 0 ? Math.ceil((num - 100)/50) : 0 
     //result = result + over100
-    console.log(num)
+    //console.log(num)
 return result}
 
+function arranger(number,disSep){
+  let arrangement = ''
+
+  if (disSep == false){
+    for (let i = 1; i <= number; i++) {
+      console.log(`cubicle ${i}`)
+      //arrangement = arrangement.concat(`<p>cubicle ${i}: `)
+      //if (i =1) {arrangement = arrangement.concat(`disabled accessible toilet</p> `)}
+      //else {arrangement.concat(`ambulant disabled</p> `)}
+      //i=1 ? arrangement = arrangement.concat(`disabled accessible toilet</p> `) : i=2 ? arrangement = arrangement.concat(`ambulant disabled</p> `) : i=3 ? arrangement = arrangement.concat(`normal cubicle</p> `) : i=4 ? arrangement = arrangement.concat(`enlarged cubicle</p> `) : arrangement.concat(`normal cubicle</p> `)
+    }
+console.log(arrangement)
+    return arrangement
+  }
+
+  //cubicle 1: disabled accessible toilet
+  //cubicle 2: ambulant disabled
+  //cubicle 3: normal cubicle
+  //cubicle 4: enlarged cubicle
+  //cubicle 5+: normal cubicle
+
+
+  //separate cubicle: disabled accessible toilet
+  //cubicle 1: ambulant disabled
+  //cubicle 2: normal cubicle
+  //cubicle 3: normal cubicle
+  //cubicle 4: enlarged cubicle
+  //cubicle 5+: normal cubicle
+
+
+}
+
 calcButton.addEventListener('click', function(){
-    console.log('clicked calc');
+    //console.log('clicked calc');
     maleRatio = maleRatioAtt.value
     femaleRatio = femaleRatioAtt.value
     occupancy = occNumAtt.value
     //console.log(maleRatio)
     //console.log(femaleRatio)
     //console.log(occupancy)
-    maleNum = occupancy * maleRatio / 100
-    femaleNum = occupancy * femaleRatio / 100
+    maleNum = Math.ceil(occupancy * maleRatio / 100)
+    femaleNum = Math.ceil(occupancy * femaleRatio / 100)
     
-    console.log(femaleNum)
+    //console.log(femaleNum)
     maleToilet = calcItems(maleNum)
-    console.log(maleToilet)
+    //console.log(maleToilet)
     femaleToilet = calcItems(femaleNum)
-    console.log(femaleToilet)
+    //console.log(femaleToilet)
     maleWashbasin = maleToilet
     femaleWashbasin = femaleToilet
     maleToiletAlt = calcAltItems(maleNum)[0]
     maleWashbasinAlt = calcAltItems(maleNum)[2]
     maleUrinal = calcAltItems(maleNum)[1]
+
     
     
-    console.log(femaleToilet)
+    
+    //console.log(femaleToilet)
 
 
     //console.log(maleNum, femaleNum)
@@ -107,8 +141,11 @@ calcButton.addEventListener('click', function(){
     <p>alternatively, male toilet requires ${maleToiletAlt} WCs, ${maleUrinal} urinals and ${maleWashbasinAlt} washbasins</p>
     <p>female toilet requires ${femaleToilet} WCs and ${femaleWashbasin} washbasins</p>`
 
+    arrangeParagraph.innerHTML = null
+    //arrangeParagraph.innerHTML = arranger(maleToilet,false)
+
     calcAltItems(maleNum)
-    console.log(calcAltItems(maleNum))
+    //console.log(calcAltItems(maleNum))
 
   });
 
