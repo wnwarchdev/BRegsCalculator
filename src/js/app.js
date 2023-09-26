@@ -29,7 +29,12 @@ let femaleNum;
 let maleRatio;
 let femaleRatio;
 let maleToilet;
+let maleToiletAlt
 let femaleToilet;
+let maleWashbasin
+let maleWashbasinAlt
+let femaleWashbasin
+let maleUrinal
 
 let defaultRatio = 60
 maleRatio = defaultRatio
@@ -65,6 +70,7 @@ function calcAltItems(num){
     result = num<=15 ? [1,1,1] : num<=30 ? [2,1,2] : num<=45 ? [2,2,2] : num<=60 ? [3,2,3] : num<=75 ? [3,3,3] : num<=90 ? [4,3,4] : [4,4,4]
     over100 = num-100 > 0 ? Math.ceil((num - 100)/50) : 0 
     //result = result + over100
+    console.log(num)
 return result}
 
 calcButton.addEventListener('click', function(){
@@ -77,18 +83,29 @@ calcButton.addEventListener('click', function(){
     //console.log(occupancy)
     maleNum = occupancy * maleRatio / 100
     femaleNum = occupancy * femaleRatio / 100
-
-
+    
+    console.log(femaleNum)
     maleToilet = calcItems(maleNum)
+    console.log(maleToilet)
     femaleToilet = calcItems(femaleNum)
-
+    console.log(femaleToilet)
+    maleWashbasin = maleToilet
+    femaleWashbasin = femaleToilet
+    maleToiletAlt = calcAltItems(maleNum)[0]
+    maleWashbasinAlt = calcAltItems(maleNum)[2]
+    maleUrinal = calcAltItems(maleNum)[1]
+    
+    
+    console.log(femaleToilet)
 
 
     //console.log(maleNum, femaleNum)
     resultParagraph.innerHTML = null
     resultParagraph.innerHTML = `<p>Based on ${occupancy} occupants number, at ${maleRatio}/${femaleRatio} ratio</p>
     <p>male occupancy number is: ${maleNum} and female occupancy number is: ${femaleNum}</p>
-    <p>male toilet number is: ${maleToilet}</p> <p>female toilet number is: ${femaleToilet}</p>`
+    <p>male toilet requires ${maleToilet} WCs and ${maleWashbasin} washbasins</p>
+    <p>alternatively, male toilet requires ${maleToiletAlt} WCs, ${maleUrinal} urinals and ${maleWashbasinAlt} washbasins</p>
+    <p>female toilet requires ${femaleToilet} WCs and ${femaleWashbasin} washbasins</p>`
 
     calcAltItems(maleNum)
     console.log(calcAltItems(maleNum))
