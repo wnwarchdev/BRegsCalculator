@@ -75,31 +75,16 @@ return result}
 
 function arranger(number,disSep){
   let arrangement = ''
-
-  if (disSep == false){
     for (let i = 1; i <= number; i++) {
+      if (disSep == false){
       arrangement = arrangement.concat(`<p>cubicle ${i}: `)
       arrangement = i==1 ? arrangement.concat(`disabled accessible toilet</p> `) : i==2 ? arrangement.concat(`ambulant disabled</p> `) : i==3 ? arrangement.concat(`normal cubicle</p> `) : i==4 ? arrangement.concat(`enlarged cubicle</p> `) : arrangement.concat(`normal cubicle</p> `)
+    } else {
+      arrangement = i==1 ? arrangement.concat(`<p>separate cubicle: `) : arrangement.concat(`<p>cubicle ${i-1}: `)
+      arrangement = i==1 ? arrangement.concat(`disabled accessible toilet</p> `) : i==2 ? arrangement.concat(`ambulant disabled</p> `) : 3<=i<=4 ? arrangement.concat(`normal cubicle</p> `) : i==5 ? arrangement.concat(`enlarged cubicle</p> `) : arrangement.concat(`normal cubicle</p> `)
     }
-    
-    return arrangement
   }
-
-  //cubicle 1: disabled accessible toilet
-  //cubicle 2: ambulant disabled
-  //cubicle 3: normal cubicle
-  //cubicle 4: enlarged cubicle
-  //cubicle 5+: normal cubicle
-
-
-  //separate cubicle: disabled accessible toilet
-  //cubicle 1: ambulant disabled
-  //cubicle 2: normal cubicle
-  //cubicle 3: normal cubicle
-  //cubicle 4: enlarged cubicle
-  //cubicle 5+: normal cubicle
-
-
+  return arrangement
 }
 
 calcButton.addEventListener('click', function(){
@@ -139,7 +124,7 @@ calcButton.addEventListener('click', function(){
     <p>female toilet requires ${femaleToilet} WCs and ${femaleWashbasin} washbasins</p>`
 
     arrangeParagraph.innerHTML = null
-    arrangeParagraph.innerHTML = arranger(maleToilet,false)
+    arrangeParagraph.innerHTML = arranger(maleToilet,true)
 
     calcAltItems(maleNum)
     //console.log(calcAltItems(maleNum))
