@@ -7,6 +7,9 @@
 const calcButton = document.getElementById('calcButton')
 const pdfButton = document.getElementById('pdfButton')
 
+const urinalCheck = document.getElementById('urinalCheck')
+const separateCheck = document.getElementById('separateCheck')
+
 const maleRatioAtt = document.getElementById('maleRatio')
 const femaleRatioAtt = document.getElementById('femaleRatio')
 const occNumAtt = document.getElementById('occNum')
@@ -36,6 +39,8 @@ let maleWashbasin
 let maleWashbasinAlt
 let femaleWashbasin
 let maleUrinal
+let uriBool = false
+let sepBool = false
 
 let defaultRatio = 60
 maleRatio = defaultRatio
@@ -87,6 +92,36 @@ function arranger(number,disSep){
   return arrangement
 }
 
+
+// function toggler(funcName, boolName){
+//   if (urinalCheck.checked) {
+//     boolName = true
+//     //console.log('uriBool: ' , uriBool)
+//       } else {
+//         boolName = false
+//         console.log(`${boolName}:` , uriBool)
+//       } }
+// }
+
+urinalCheck.addEventListener("change", function() {
+  if (urinalCheck.checked) {
+uriBool = true
+console.log('uriBool: ' , uriBool)
+  } else {
+    uriBool = false
+    console.log('uriBool: ' , uriBool)
+  } })
+
+  separateCheck.addEventListener("change", function() {
+    if (separateCheck.checked) {
+  sepBool = true
+  console.log('sepBool: ' , sepBool)
+    } else {
+      sepBool = false
+      console.log('sepBool: ' , sepBool)
+    } })
+
+
 calcButton.addEventListener('click', function(){
     //console.log('clicked calc');
     maleRatio = maleRatioAtt.value
@@ -124,7 +159,7 @@ calcButton.addEventListener('click', function(){
     <p>female toilet requires ${femaleToilet} WCs and ${femaleWashbasin} washbasins</p>`
 
     arrangeParagraph.innerHTML = null
-    arrangeParagraph.innerHTML = arranger(maleToilet,true)
+    arrangeParagraph.innerHTML = arranger(maleToilet,uriBool)
 
     calcAltItems(maleNum)
     //console.log(calcAltItems(maleNum))
