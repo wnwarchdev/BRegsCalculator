@@ -13,9 +13,9 @@
     <p>Estimated occupancy: <input type="number" id='occNum' min="1" value="100" step="1" oninput="this.value = Math.round(this.value)" required></p> 
     <p>Male <input type="number" id="maleRatio" value="60" min="0" max="100" step="1" oninput="this.value = Math.round(this.value)" required>% / Female <input type="number" id="femaleRatio" value="60" min="0" step="1" max="100" oninput="this.value = Math.round(this.value)" required>% ratio
     
-    <p>Results:</p>
+    <p>Results: Use urinals? <input type="checkbox" id="urinalCheck"> </p>
     <div id="resultsPara"> <p>Click Calculate button to get results</p> </div>
-    <p>Arrangement:  Use urinals? <input type="checkbox" id="urinalCheck"> </p>
+    <p>Arrangement:  Disabled cubicle separated? <input type="checkbox" id="separateCheck"> </p>
     <div id="arrangePara"><p>Click Calculate button to get arrangement</p></div>
     <p>Notes:</p>
     <button id="calcButton">Calculate</button>
