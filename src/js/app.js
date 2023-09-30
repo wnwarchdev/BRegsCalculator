@@ -9,6 +9,7 @@ const pdfButton = document.getElementById('pdfButton');
 
 const urinalCheck = document.getElementById('urinalCheck');
 const separateCheck = document.getElementById('separateCheck');
+const controlsDiv = document.getElementById('controls');
 
 const maleRatioAtt = document.getElementById('maleRatio');
 const femaleRatioAtt = document.getElementById('femaleRatio');
@@ -178,6 +179,11 @@ separateCheck.addEventListener('change', function(event) {
   runCalcs()
 });
 
+controlsDiv.addEventListener('change', (e) => {
+  if(e.target.type = 'number') {
+    runCalcs()
+  }
+});
 
 calcButton.addEventListener('click', function(event){
   event.preventDefault();
