@@ -1,44 +1,93 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>HTML 5 Boilerplate</title>
-    <link rel="stylesheet" href="./src/sass/style.scss">
+    <link rel="stylesheet" href="./src/sass/style.scss" />
   </head>
   <body>
-    <header>    <h1>Workplace toilet provisions calculator</h1>
+    <header>
+      <h1>Workplace toilet provisions calculator</h1>
       <h3>based on BS 6465 part1 March 2006</h3>
     </header>
-<nav>
-  <div id="controls">
-    <p>Estimated occupancy: <input type="number" id='occNum' min="1" max="9999" maxlength="4" value="100" step="1" oninput="this.value = Math.round(this.value); this.value=this.value.slice(0,this.maxLength)" onpaste="return false;" ondrop="return false;" autocomplete="off" required></p> 
-    <p>Male <input type="number" id="maleRatio" value="60" min="0" max="100" maxlength="3" step="1" oninput="this.value = Math.round(this.value); this.value=this.value.slice(0,this.maxLength); this.value>100 ? this.value = 100 : this.value" onpaste="return false;" ondrop="return false;" autocomplete="off" required>% / Female <input type="number" id="femaleRatio" value="60" min="0" step="1" max="100" maxlength="3" oninput="this.value = Math.round(this.value); this.value=this.value.slice(0,this.maxLength); this.value>100 ? this.value = 100 : this.value" onpaste="return false;" ondrop="return false;" autocomplete="off" required>% ratio
-    </div>
-    <p>Results: Use urinals? <input type="checkbox" id="urinalCheck"> </p>
-    <p>Disabled cubicle separated? <input type="checkbox" id="separateCheck"> </p>
-    <button id="calcButton">Calculate</button>
-    <button id="pdfButton">Get PDF</button>
+    <nav>
+      <div id="controls">
+        <p>
+          Estimated occupancy:
+          <input
+            type="number"
+            id="occNum"
+            min="1"
+            max="9999"
+            maxlength="4"
+            value="100"
+            step="1"
+            oninput="this.value = Math.round(this.value); this.value=this.value.slice(0,this.maxLength)"
+            onpaste="return false;"
+            ondrop="return false;"
+            autocomplete="off"
+            required
+          />
+        </p>
+        <p>
+          Male
+          <input
+            type="number"
+            id="maleRatio"
+            value="60"
+            min="0"
+            max="100"
+            maxlength="3"
+            step="1"
+            oninput="this.value = Math.round(this.value); this.value=this.value.slice(0,this.maxLength); this.value>100 ? this.value = 100 : this.value"
+            onpaste="return false;"
+            ondrop="return false;"
+            autocomplete="off"
+            required
+          />% / Female
+          <input
+            type="number"
+            id="femaleRatio"
+            value="60"
+            min="0"
+            step="1"
+            max="100"
+            maxlength="3"
+            oninput="this.value = Math.round(this.value); this.value=this.value.slice(0,this.maxLength); this.value>100 ? this.value = 100 : this.value"
+            onpaste="return false;"
+            ondrop="return false;"
+            autocomplete="off"
+            required
+          />% ratio
+        </p>
+      </div>
+      <p>Results: Use urinals? <input type="checkbox" id="urinalCheck" /></p>
+      <p>
+        Disabled cubicle separated? <input type="checkbox" id="separateCheck" />
+      </p>
+      <button id="calcButton">Calculate</button>
+      <button id="pdfButton">Get PDF</button>
+    </nav>
+    <main>
+      <div id="resultsPara"><p>Click Calculate button to get results</p></div>
+      <p>Arrangement:</p>
+      <p>Male cubicle list:</p>
+      <div id="arrangeMale">
+        <p>Click Calculate button to get arrangement</p>
+      </div>
+      <p>Female cubicle list:</p>
+      <div id="arrangeFemale">
+        <p>Click Calculate button to get arrangement</p>
+      </div>
+      <p>Notes:</p>
+    </main>
 
+    <footer>
+      <p>made by Wojtek Nowak</p>
+    </footer>
 
-</nav>
-<main>
-    <div id="resultsPara"> <p>Click Calculate button to get results</p> </div>
-    <p>Arrangement:</p>
-    <p>Male cubicle list:</p>
-    <div id="arrangeMale"><p>Click Calculate button to get arrangement</p></div>
-    <p>Female cubicle list:</p>
-    <div id="arrangeFemale"><p>Click Calculate button to get arrangement</p></div>
-    <p>Notes:</p>
-  </main>
-
-  <footer>
-
-    <p>made by Wojtek Nowak</p>
-  </footer>
-
-    
-  <script src="./src/js/app.js" type="module"></script>
+    <script src="./src/js/app.js" type="module"></script>
   </body>
 </html>
