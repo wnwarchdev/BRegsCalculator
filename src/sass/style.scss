@@ -1,2 +1,27 @@
 @import "normalize";
 
+/* color backgrounds */
+$background-page: #f5f5f2;
+
+
+body {
+    background-color: $background-page;
+    text-align: center;
+  }
+
+  header {
+    background-color: green
+  }
+
+  nav {
+background-color: yellow;
+
+  }
+
+  main {
+    background-color: pink;
+  }
+
+  footer {
+    background-color: blue
+  }
