@@ -235,6 +235,7 @@ calcButton.addEventListener("click", function (event) {
 
 pdfButton.addEventListener("click", function () {
   console.log("clicked pdf");
+  window.print();
 });
 
 //ADD BLOCKARRANGER
