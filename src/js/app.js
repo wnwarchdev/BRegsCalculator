@@ -1,3 +1,5 @@
+import { jsPDF } from "jspdf";
+
 `use strict`;
 
 //ADD CLASSNAMES
@@ -235,7 +237,29 @@ calcButton.addEventListener("click", function (event) {
 
 pdfButton.addEventListener("click", function () {
   console.log("clicked pdf");
-  window.print();
+  //window.print();
+
+  const doc = new jsPDF("p", "in", "a4");
+
+  doc.text(
+    `Based on ${occupancy} occupants number,
+    at ${maleRatio}/${femaleRatio} ratio,
+    male occupancy number is: ${maleNum} and
+    female occupancy number is: ${femaleNum}</p>
+  ${
+    uriBool == false
+      ? `male toilet requires ${maleToilet} WCs and ${maleWashbasin} washbasins`
+      : `male toilet requires ${maleToilet} WCs, ${maleUrinal} urinals and ${maleWashbasin} washbasins`
+  }
+  female toilet requires ${femaleToilet} WCs and ${femaleWashbasin} washbasins`,
+    1,
+    1,
+  );
+  doc.setDrawColor("black");
+  doc.setLineWidth(1 / 72);
+  doc.line(0.5, 0.5, 0.5, 11.25);
+  doc.line(7.75, 0.5, 7.75, 11.25);
+  doc.save("a4.pdf");
 });
 
 //ADD BLOCKARRANGER
