@@ -2,7 +2,12 @@ import { jsPDF } from "jspdf";
 
 `use strict`;
 
-//ADD CLASSNAMES
+//ADD DATE
+
+const dateNow = function () {
+  const date = new Date();
+  console.log(date);
+};
 
 //ADD BUTTONS
 
@@ -25,8 +30,6 @@ const arrangeParagraphFemale = document.getElementById("arrangeFemale");
 let occupancy;
 occupancy = 100;
 
-//occupancy = prompt()
-
 //ADD MALENUM AND FEMALENUM VARIABLES
 
 let maleNum;
@@ -36,7 +39,6 @@ let femaleRatio;
 let maleToilet;
 let femaleToilet;
 let maleWashbasin;
-let maleWashbasinAlt;
 let femaleWashbasin;
 let maleUrinal;
 let uriBool = false;
@@ -45,16 +47,6 @@ let sepBool = false;
 let defaultRatio = 60;
 maleRatio = defaultRatio;
 femaleRatio = defaultRatio;
-
-//maleRatio = prompt()
-//femaleRatio = prompt()
-
-// console.log('occupancy is: ', occupancy)
-// console.log('ratios are: Male(',maleRatio,') and Female(', femaleRatio, ')')
-// console.log('maleNum is: ',maleNum)
-// console.log('femaleNum is: ',femaleNum)
-
-//ADD TOILETCALCULATOR
 
 function calcItems(num, uri) {
   let result;
@@ -99,24 +91,6 @@ function calcItems(num, uri) {
   return result;
 }
 
-// function calcItems(num){
-//   let result
-//   let over100 = 0
-//   result = num<=5 ? 1 : num<=15 ? 2 : num<=30 ? 3 : num<=45 ? 4 : num<=60 ? 5: num<=75 ? 6 : num<=90 ? 7 : 8
-//   over100 = num-100 > 0 ? Math.ceil((num - 100)/25) : 0
-//   //console.log('result of over: ',over100)
-//   result = result + over100
-// return result}
-
-// function calcAltItems(num){
-//     let result
-//     let over100 = 0
-//     result = num<=15 ? [1,1,1] : num<=30 ? [2,1,2] : num<=45 ? [2,2,2] : num<=60 ? [3,2,3] : num<=75 ? [3,3,3] : num<=90 ? [4,3,4] : [4,4,4]
-//     over100 = num-100 > 0 ? Math.ceil((num - 100)/50) : 0
-//     //result = result + over100
-//     //console.log(num)
-// return result}
-
 function runCalcs() {
   maleRatio = maleRatioAtt.value;
   femaleRatio = femaleRatioAtt.value;
@@ -128,13 +102,7 @@ function runCalcs() {
   femaleToilet = calcItems(femaleNum)[0];
   maleWashbasin = calcItems(maleNum, uriBool)[2];
   femaleWashbasin = calcItems(femaleNum)[2];
-  // maleToiletAlt = calcAltItems(maleNum)[0]
-  // maleWashbasinAlt = calcAltItems(maleNum)[2]
-  // maleUrinal = calcAltItems(maleNum)[1]
 
-  //console.log(femaleToilet)
-
-  //console.log(maleNum, femaleNum)
   resultParagraph.innerHTML = null;
   resultParagraph.innerHTML = `<p>Based on ${occupancy} occupants number, at ${maleRatio}/${femaleRatio} ratio</p>
     <p>male occupancy number is: ${maleNum} and female occupancy number is: ${femaleNum}</p>
@@ -149,10 +117,6 @@ function runCalcs() {
   arrangeParagraphFemale.innerHTML = null;
   arrangeParagraphMale.innerHTML = arranger(maleToilet, sepBool);
   arrangeParagraphFemale.innerHTML = arranger(femaleToilet, sepBool);
-
-  // calcAltItems(maleNum)
-  //console.log(calcAltItems(maleNum))
-  //    <p>alternatively, male toilet requires ${maleToiletAlt} WCs, ${maleUrinal} urinals and ${maleWashbasinAlt} washbasins</p>
 }
 
 function arranger(number, disSep) {
@@ -190,24 +154,12 @@ function arranger(number, disSep) {
   return arrangement;
 }
 
-// function toggler(funcName, boolName){
-//   if (urinalCheck.checked) {
-//     boolName = true
-//     //console.log('uriBool: ' , uriBool)
-//       } else {
-//         boolName = false
-//         console.log(`${boolName}:` , uriBool)
-//       } }
-// }
-
 urinalCheck.addEventListener("change", function (event) {
   event.preventDefault();
   if (urinalCheck.checked) {
     uriBool = true;
-    //console.log('uriBool: ' , uriBool)
   } else {
     uriBool = false;
-    //console.log('uriBool: ' , uriBool)
   }
   runCalcs();
 });
@@ -216,10 +168,8 @@ separateCheck.addEventListener("change", function (event) {
   event.preventDefault();
   if (separateCheck.checked) {
     sepBool = true;
-    //console.log('sepBool: ' , sepBool)
   } else {
     sepBool = false;
-    //console.log('sepBool: ' , sepBool)
   }
   runCalcs();
 });
@@ -236,22 +186,20 @@ calcButton.addEventListener("click", function (event) {
 });
 
 pdfButton.addEventListener("click", function () {
-  console.log("clicked pdf");
-  //window.print();
-
+  dateNow();
   const doc = new jsPDF("p", "in", "a4");
 
+  doc.setFontSize(11);
   doc.text(
-    `Based on ${occupancy} occupants number,
-    at ${maleRatio}/${femaleRatio} ratio,
+    `Based on ${occupancy} occupants, at ${maleRatio}/${femaleRatio} ratio:
     male occupancy number is: ${maleNum} and
-    female occupancy number is: ${femaleNum}</p>
-  ${
-    uriBool == false
-      ? `male toilet requires ${maleToilet} WCs and ${maleWashbasin} washbasins`
-      : `male toilet requires ${maleToilet} WCs, ${maleUrinal} urinals and ${maleWashbasin} washbasins`
-  }
-  female toilet requires ${femaleToilet} WCs and ${femaleWashbasin} washbasins`,
+    female occupancy number is: ${femaleNum}
+    ${
+      uriBool == false
+        ? `male toilet requires ${maleToilet} WCs and ${maleWashbasin} washbasins`
+        : `male toilet requires ${maleToilet} WCs, ${maleUrinal} urinals and ${maleWashbasin} washbasins`
+    }
+    female toilet requires ${femaleToilet} WCs and ${femaleWashbasin} washbasins`,
     1,
     1,
   );
@@ -259,7 +207,5 @@ pdfButton.addEventListener("click", function () {
   doc.setLineWidth(1 / 72);
   doc.line(0.5, 0.5, 0.5, 11.25);
   doc.line(7.75, 0.5, 7.75, 11.25);
-  doc.save("a4.pdf");
+  //doc.save("a4.pdf");
 });
-
-//ADD BLOCKARRANGER
