@@ -5,11 +5,19 @@ $background-page: #f5f5f2;
 
 body {
   background-color: $background-page;
-  text-align: center;
+  //border-style: solid;
+  //border-color: orange;
+  margin: 0em 2em 0em;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
-header {
-  background-color: green;
+#logo {
+  margin-top: 1em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 nav {
@@ -22,9 +30,20 @@ main {
 
 footer {
   background-color: blue;
+  margin-top: auto;
 }
 
 h1 {
+  font-family: "Roboto", sans-serif;
+  margin: 0;
+  text-transform: uppercase;
+  font-size: 20px;
+}
+
+h3 {
+  margin: 0;
+  font-size: 20px;
+  color: gray;
   font-family: "Roboto", sans-serif;
 }
 
