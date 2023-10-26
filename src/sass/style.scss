@@ -71,15 +71,37 @@ button {
   justify-content: space-between;
 }
 
+#controls {
+  // border-color: red;
+  // border-style: solid;
+}
+
 #controls p {
-  //border-style: solid;
+  // border-style: solid;
+  // display: flex;
   height: 30;
   margin: 0;
   //text-transform: uppercase;
 }
 
 #checkboxes p {
-  //border-style: solid;
+  // border-style: solid;
+  // display: flex;
   height: 30;
   margin: 0;
+}
+
+#maleRatio,
+#femaleRatio {
+  width: 45px;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  opacity: 1;
+}
+
+#ratios {
+  display: flex;
+  justify-content: space-between;
 }
