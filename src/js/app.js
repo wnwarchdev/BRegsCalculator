@@ -4,16 +4,20 @@ import { jsPDF } from "jspdf";
 
 //ADD DATE
 
-const dateNow = function () {
-  const date = new Date().toLocaleDateString("en-GB", {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-  console.log(date);
-};
+// const dateNow = function () {
+//   const date = new Date().toLocaleDateString("en-GB", {
+//     year: "numeric",
+//     month: "2-digit",
+//     day: "2-digit",
+//     hour: "2-digit",
+//     minute: "2-digit",
+//   });
+//   console.log(date);
+// };
+
+const now = new Date().toISOString().substring(0, 10);
+console.log(now);
+document.getElementById("dateLine").value = now;
 
 //ADD BUTTONS
 

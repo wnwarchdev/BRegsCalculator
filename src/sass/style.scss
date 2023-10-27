@@ -68,7 +68,7 @@ button {
 #buttons {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 #controls {
@@ -76,20 +76,19 @@ button {
   // border-style: solid;
 }
 
-#controls p {
-  // border-style: solid;
-  // display: flex;
+#controls p,
+#checkboxes p,
+#description p {
   height: 30;
   margin: 0;
-  //text-transform: uppercase;
 }
 
-#checkboxes p {
-  // border-style: solid;
-  // display: flex;
-  height: 30;
-  margin: 0;
-}
+// #checkboxes p {
+//   // border-style: solid;
+//   // display: flex;
+//   height: 30;
+//   margin: 0;
+// }
 
 #maleRatio,
 #femaleRatio {
