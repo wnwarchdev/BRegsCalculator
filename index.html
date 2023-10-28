@@ -19,25 +19,28 @@
     </header>
     <nav>
       <div id="controls">
+        <div>
+          <p>
+            Estimated occupancy:
+          </p>
+        <input
+        type="number"
+        id="occNum"
+        min="1"
+        max="9999"
+        maxlength="4"
+        value="100"
+        step="1"
+        oninput="this.value = Math.round(this.value); this.value=this.value.slice(0,this.maxLength)"
+        onpaste="return false;"
+        ondrop="return false;"
+        autocomplete="off"
+        required
+         />
+        </div>
+        <div id="ratios">
         <p>
-          Estimated occupancy:
-          <input
-            type="number"
-            id="occNum"
-            min="1"
-            max="9999"
-            maxlength="4"
-            value="100"
-            step="1"
-            oninput="this.value = Math.round(this.value); this.value=this.value.slice(0,this.maxLength)"
-            onpaste="return false;"
-            ondrop="return false;"
-            autocomplete="off"
-            required
-          />
-        </p><div id="ratios">
-        <p>
-          Male %
+          Male %</p> 
           <input
             type="number"
             id="maleRatio"
@@ -51,7 +54,7 @@
             ondrop="return false;"
             autocomplete="off"
             required
-          />  </p>   <p>Female %
+          />    <p>Female %</p>
           <input
             type="number"
             id="femaleRatio"
@@ -66,23 +69,34 @@
             autocomplete="off"
             required
           />
-        </p></div>
+        </div>
       
-      <div id="checkboxes">
-        <p>
-          <input type="checkbox" id="urinalCheck" />Results: Use urinals?
-        </p>
-        <p>
-          <input type="checkbox" id="separateCheck" />Disabled cubicle separated? 
-        </p>
+      
 
+        <div>
+          
+        <p>
+          Male toilets use urinals?
+        </p>
+        <input type="checkbox" id="urinalCheck" />
       </div>
+
+      <div>
+        
+        <p>
+          Disabled cubicle separated? 
+        </p>
+        <input type="checkbox" id="separateCheck" />
+      </div>
+
+      
+
     </div>
       <div id="description">
-        <p>Line 1: <input type="text"> </p>
-        <p>Line 2: <input type="text"> </p>
-        <p>Author: <input type="text"></p>
-        <p>Date: <input type="date" id="dateLine"> </p>
+        <div><p>Line 1:</p> <input type="text" id="firstLine" autocomplete="off"> </div>
+        <div><p>Line 2:</p> <input type="text" id="secondLine" autocomplete="off"></div>
+        <div><p>Author:</p> <input type="text" id="authorLine" autocomplete="off"></div>
+        <div><p>Date:</p> <input type="date" id="dateLine" autocomplete="off"></div>
       </div>
 
       <div id="buttons">

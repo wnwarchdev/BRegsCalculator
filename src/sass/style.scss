@@ -5,8 +5,6 @@ $background-page: #f5f5f2;
 
 body {
   background-color: $background-page;
-  //border-style: solid;
-  //border-color: orange;
   margin: 0em 2em 0em;
   display: flex;
   flex-direction: column;
@@ -57,7 +55,6 @@ h3 {
 }
 
 button {
-  //texheight: 24px;
   border-radius: 12px;
   border: 0;
   background-color: rgb(154, 40, 9);
@@ -71,36 +68,40 @@ button {
   justify-content: space-around;
 }
 
-#controls {
-  // border-color: red;
-  // border-style: solid;
-}
-
-#controls p,
-#checkboxes p,
-#description p {
-  height: 30;
-  margin: 0;
-}
-
-// #checkboxes p {
-//   // border-style: solid;
-//   // display: flex;
-//   height: 30;
-//   margin: 0;
-// }
-
-#maleRatio,
-#femaleRatio {
-  width: 45px;
-}
-
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   opacity: 1;
 }
 
 #ratios {
-  display: flex;
-  justify-content: space-between;
+  #maleRatio,
+  #femaleRatio {
+    width: 45px;
+  }
+}
+
+#description,
+#controls {
+  div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 30px;
+    p {
+      margin: 0;
+    }
+  }
+}
+
+#description {
+  width: 190px;
+  input {
+    width: 120px;
+    height: 24px;
+    padding: 0px;
+  }
+}
+
+#controls {
+  width: 240px;
 }

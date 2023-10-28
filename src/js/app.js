@@ -185,7 +185,7 @@ separateCheck.addEventListener("change", function (event) {
 });
 
 controlsDiv.addEventListener("change", (e) => {
-  if ((e.target.type = "number")) {
+  if (e.target.type == "number") {
     runCalcs();
   }
 });
