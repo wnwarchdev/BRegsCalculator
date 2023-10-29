@@ -16,7 +16,6 @@ import { jsPDF } from "jspdf";
 // };
 
 const now = new Date().toISOString().substring(0, 10);
-console.log(now);
 document.getElementById("dateLine").value = now;
 
 //ADD BUTTONS
@@ -114,51 +113,69 @@ function runCalcs() {
   femaleWashbasin = calcItems(femaleNum)[2];
 
   resultParagraph.innerHTML = null;
-  resultParagraph.innerHTML = `<p>Based on ${occupancy} occupants number, at ${maleRatio}/${femaleRatio} ratio</p>
-    <p>male occupancy number is: ${maleNum} and female occupancy number is: ${femaleNum}</p>
+  resultParagraph.innerHTML = `<p class='rightMargin' >${now}</p><p>Description line 01</p><p>Description line 01</p><p>calculations by: Author</p><br>
+  <p>For ${occupancy} occupants, at ${maleRatio}/${femaleRatio} ratio male occupancy number is: ${maleNum} and female occupancy number is: ${femaleNum}</p>
+  <p> Toilet provision based on BS 6465 part1 March 2006, (paragraph 6.4.1, table-${
+    uriBool == false ? `3` : `4`
+  } ):
     ${
       uriBool == false
-        ? `<p>male toilet requires ${maleToilet} WCs and ${maleWashbasin} washbasins</p>`
-        : `<p>male toilet requires ${maleToilet} WCs, ${maleUrinal} urinals and ${maleWashbasin} washbasins</p>`
+        ? `<p>• Male toilet requires ${maleToilet} WCs and ${maleWashbasin} washbasins</p>`
+        : `<p>• Male toilet requires ${maleToilet} WCs, ${maleUrinal} urinals and ${maleWashbasin} washbasins</p>`
     }
-    <p>female toilet requires ${femaleToilet} WCs and ${femaleWashbasin} washbasins</p>`;
+    <p>• Female toilet requires ${femaleToilet} WCs and ${femaleWashbasin} washbasins</p><br>`;
 
   arrangeParagraphMale.innerHTML = null;
   arrangeParagraphFemale.innerHTML = null;
-  arrangeParagraphMale.innerHTML = arranger(maleToilet, sepBool);
-  arrangeParagraphFemale.innerHTML = arranger(femaleToilet, sepBool);
+  arrangeParagraphMale.innerHTML = arranger(maleToilet, sepBool, "Male");
+  arrangeParagraphFemale.innerHTML = arranger(femaleToilet, sepBool, "Female");
 }
 
-function arranger(number, disSep) {
-  let arrangement = "";
-  for (let i = 1; i <= number; i++) {
+function arranger(number, disSep, sex) {
+  let arrangement = `<p>${sex} WC cubicle types: <p>`;
+  let iterations = number <= 6 ? number : 6;
+  //console.log(iterations);
+  for (let i = 1; i <= iterations; i++) {
     if (disSep == false) {
-      arrangement = arrangement.concat(`<p>cubicle ${i}: `);
+      arrangement = arrangement.concat(`<p>cubicle ${i}`);
       arrangement =
         i == 1
-          ? arrangement.concat(`disabled accessible toilet</p> `)
+          ? arrangement.concat(`: disabled accessible toilet</p> `)
           : i == 2
-          ? arrangement.concat(`ambulant disabled</p> `)
+          ? arrangement.concat(`: ambulant disabled</p> `)
           : i == 3
-          ? arrangement.concat(`normal cubicle</p> `)
+          ? arrangement.concat(`: normal cubicle</p> `)
           : i == 4
-          ? arrangement.concat(`enlarged cubicle</p> `)
-          : arrangement.concat(`normal cubicle</p> `);
-    } else {
-      arrangement =
-        i == 1
-          ? arrangement.concat(`<p>separate cubicle: `)
-          : arrangement.concat(`<p>cubicle ${i - 1}: `);
-      arrangement =
-        i == 1
-          ? arrangement.concat(`disabled accessible toilet</p> `)
-          : i == 2
-          ? arrangement.concat(`ambulant disabled</p> `)
-          : 3 <= i <= 4
-          ? arrangement.concat(`normal cubicle</p> `)
+          ? arrangement.concat(`: enlarged cubicle</p> `)
           : i == 5
-          ? arrangement.concat(`enlarged cubicle</p> `)
-          : arrangement.concat(`normal cubicle</p> `);
+          ? arrangement.concat(`: normal cubicle</p> `)
+          : arrangement.concat(
+              number == 6
+                ? `: normal cubicle</p> `
+                : ` to ${number}: normal cubicle</p> `,
+            );
+    } else {
+      console.log(i);
+      arrangement =
+        i == 1
+          ? arrangement.concat(`<p>separate`)
+          : arrangement.concat(`<p>cubicle ${i - 1}`);
+      arrangement =
+        i == 1
+          ? arrangement.concat(`: disabled accessible toilet</p> `)
+          : i == 2
+          ? arrangement.concat(`: ambulant disabled</p> `)
+          : i == 3
+          ? arrangement.concat(`: normal cubicle</p> `)
+          : i == 4
+          ? arrangement.concat(`: normal cubicle</p> `)
+          : i == 5
+          ? arrangement.concat(`: enlarged cubicle</p> `)
+          : arrangement.concat(
+              number == 6
+                ? `: normal cubicle</p> `
+                : ` to ${number}: normal cubicle</p> `,
+            );
     }
   }
   return arrangement;

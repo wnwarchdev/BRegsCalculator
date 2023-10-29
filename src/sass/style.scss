@@ -32,14 +32,18 @@ nav {
 main {
   border-color: black;
   border-style: solid;
-  text-align: center;
+  text-align: left;
   font-family: "Merriweather", serif;
+  padding: 1em;
+  #arrangeDiv {
+    display: flex;
+    justify-content: space-around;
+  }
 }
 
 footer {
-  background-color: rgb(0, 0, 0);
   margin-top: auto;
-  color: white;
+  color: gray;
 }
 
 h1 {
@@ -94,7 +98,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 #description {
-  width: 190px;
+  width: 210px;
   input {
     width: 120px;
     height: 24px;
@@ -104,4 +108,8 @@ input[type="number"]::-webkit-outer-spin-button {
 
 #controls {
   width: 240px;
+}
+
+.rightMargin {
+  text-align: right;
 }
