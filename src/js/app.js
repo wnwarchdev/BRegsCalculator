@@ -34,6 +34,16 @@ const resultParagraph = document.getElementById("resultsPara");
 const arrangeParagraphMale = document.getElementById("arrangeMale");
 const arrangeParagraphFemale = document.getElementById("arrangeFemale");
 
+const descFirstLine = document.getElementById("firstLine");
+const descSecondLine = document.getElementById("secondLine");
+const descAuthorLine = document.getElementById("authorLine");
+const descDateLine = document.getElementById("dateLine");
+
+console.log(descFirstLine);
+console.log(descSecondLine);
+console.log(descAuthorLine);
+console.log(descDateLine);
+
 //ADD OCCUPANCYCALCULATOR
 
 let occupancy;
