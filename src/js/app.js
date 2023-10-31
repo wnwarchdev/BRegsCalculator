@@ -4,17 +4,6 @@ import { jsPDF } from "jspdf";
 
 //ADD DATE
 
-// const dateNow = function () {
-//   const date = new Date().toLocaleDateString("en-GB", {
-//     year: "numeric",
-//     month: "2-digit",
-//     day: "2-digit",
-//     hour: "2-digit",
-//     minute: "2-digit",
-//   });
-//   console.log(date);
-// };
-
 const now = new Date().toISOString().substring(0, 10);
 document.getElementById("dateLine").value = now;
 
@@ -38,11 +27,8 @@ const descFirstLine = document.getElementById("firstLine");
 const descSecondLine = document.getElementById("secondLine");
 const descAuthorLine = document.getElementById("authorLine");
 const descDateLine = document.getElementById("dateLine");
-
-console.log(descFirstLine);
-console.log(descSecondLine);
-console.log(descAuthorLine);
-console.log(descDateLine);
+const descriptionDiv = document.getElementById("description");
+const descriptionParagraph = document.getElementById("descriptionPara");
 
 //ADD OCCUPANCYCALCULATOR
 
@@ -110,6 +96,11 @@ function calcItems(num, uri) {
   return result;
 }
 
+function runDesc() {
+  descriptionParagraph.innerHTML = null;
+  descriptionParagraph.innerHTML = `<p class='rightMargin' >${now}</p><p>Description line 01</p><p>Description line 01</p><p>calculations by: Author</p>`;
+}
+
 function runCalcs() {
   maleRatio = maleRatioAtt.value;
   femaleRatio = femaleRatioAtt.value;
@@ -123,7 +114,7 @@ function runCalcs() {
   femaleWashbasin = calcItems(femaleNum)[2];
 
   resultParagraph.innerHTML = null;
-  resultParagraph.innerHTML = `<p class='rightMargin' >${now}</p><p>Description line 01</p><p>Description line 01</p><p>calculations by: Author</p><br>
+  resultParagraph.innerHTML = `
   <p>For ${occupancy} occupants, at ${maleRatio}/${femaleRatio} ratio male occupancy number is: ${maleNum} and female occupancy number is: ${femaleNum}</p>
   <p> Toilet provision based on BS 6465 part1 March 2006, (paragraph 6.4.1, table-${
     uriBool == false ? `3` : `4`
@@ -214,6 +205,12 @@ separateCheck.addEventListener("change", function (event) {
 controlsDiv.addEventListener("change", (e) => {
   if (e.target.type == "number") {
     runCalcs();
+  }
+});
+
+descriptionDiv.addEventListener("change", (e) => {
+  if (e.target.type == "text" || "date") {
+    runDesc();
   }
 });
 
