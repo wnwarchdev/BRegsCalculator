@@ -96,7 +96,7 @@
         <div><p>Line 1:</p> <input type="text" id="firstLine" autocomplete="off"></div>
         <div><p>Line 2:</p> <input type="text" id="secondLine" autocomplete="off"></div>
         <div><p>Author:</p> <input type="text" id="authorLine" autocomplete="off"></div>
-        <div><p>Date:</p> <input type="date" id="dateLine" autocomplete="off"></div>
+        <div><p>Date:</p> <input type="date" id="dateLine" autocomplete="off" min="1999-01-01" max="2099-01-01" oninput= "this.value>`2099-01-01` ? this.value = `2099-01-01` : this.value"></div>
       </div>
 
       <div id="buttons">

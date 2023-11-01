@@ -98,7 +98,7 @@ function calcItems(num, uri) {
 
 function runDesc() {
   descriptionParagraph.innerHTML = null;
-  descriptionParagraph.innerHTML = `<p class='rightMargin' >${now}</p><p>Description line 01</p><p>Description line 01</p><p>calculations by: Author</p>`;
+  descriptionParagraph.innerHTML = `<p class='rightMargin' >${now}</p><p>Description line 01</p><p>Description line 01</p><p>calculations by: Author</p> <br>`;
 }
 
 function runCalcs() {
@@ -210,6 +210,7 @@ controlsDiv.addEventListener("change", (e) => {
 
 descriptionDiv.addEventListener("change", (e) => {
   if (e.target.type == "text" || "date") {
+    console.log(e.target.id);
     runDesc();
   }
 });
