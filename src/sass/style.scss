@@ -98,8 +98,11 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 #description {
-  width: 210px;
-  input {
+  width: 200px;
+  #authorLine,
+  #firstLine,
+  #secondLine,
+  #dateLine {
     width: 120px;
     height: 24px;
     padding: 0px;
@@ -107,7 +110,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 #controls {
-  width: 240px;
+  width: 230px;
 }
 
 .rightMargin {
