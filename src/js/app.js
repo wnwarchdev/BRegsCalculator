@@ -29,6 +29,7 @@ const descAuthorLine = document.getElementById("authorLine");
 const descDateLine = document.getElementById("dateLine");
 const descriptionDiv = document.getElementById("description");
 const descriptionParagraph = document.getElementById("descriptionPara");
+const firstLineCheck = document.getElementById("firstLineCheck");
 
 //ADD OCCUPANCYCALCULATOR
 
@@ -96,9 +97,11 @@ function calcItems(num, uri) {
   return result;
 }
 
-function runDesc() {
-  descriptionParagraph.innerHTML = null;
-  descriptionParagraph.innerHTML = `<p class='rightMargin' >${now}</p><p>Description line 01</p><p>Description line 01</p><p>calculations by: Author</p> <br>`;
+function runDesc(idCheck) {
+  console.log(idCheck);
+  idCheck == "firstLineCheck"
+    ? (descriptionParagraph.innerHTML = `<p class='rightMargin' >${now}</p><p>Description line 01</p><p>Description line 01</p><p>calculations by: Author</p> <br>`)
+    : (descriptionParagraph.innerHTML = null);
 }
 
 function runCalcs() {
@@ -209,9 +212,8 @@ controlsDiv.addEventListener("change", (e) => {
 });
 
 descriptionDiv.addEventListener("change", (e) => {
-  if (e.target.type == "text" || "date") {
-    console.log(e.target.id);
-    runDesc();
+  if (e.target.type == "checkbox") {
+    runDesc(e.target.id);
   }
 });
 

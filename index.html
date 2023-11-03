@@ -93,10 +93,10 @@
 
     </div>
       <div id="description">
-        <div><p><input type="checkbox" id="line01Check" />Line 1:</p> <input type="text" id="firstLine" autocomplete="off"></div>
-        <div><p><input type="checkbox" id="line02Check" />Line 2:</p> <input type="text" id="secondLine" autocomplete="off"></div>
-        <div><p><input type="checkbox" id="authorCheck" />Author:</p> <input type="text" id="authorLine" autocomplete="off"></div>
-        <div><p><input type="checkbox" id="dateCheck" />Date:</p> <input type="date" id="dateLine" autocomplete="off" min="1999-01-01" max="2099-01-01" oninput= "this.value>`2099-01-01` ? this.value = `2099-01-01` : this.value"></div>
+        <div><p><input type="checkbox" id="firstLineCheck" />Line 1:</p> <input type="text" id="firstLine" autocomplete="off"></div>
+        <div><p><input type="checkbox" id="secondLineCheck" />Line 2:</p> <input type="text" id="secondLine" autocomplete="off"></div>
+        <div><p><input type="checkbox" id="authorLineCheck" />Author:</p> <input type="text" id="authorLine" autocomplete="off"></div>
+        <div><p><input type="checkbox" id="dateLineCheck" />Date:</p> <input type="date" id="dateLine" autocomplete="off" min="1999-01-01" max="2099-01-01" oninput= "this.value>`2099-01-01` ? this.value = `2099-01-01` : this.value"></div>
       </div>
 
       <div id="buttons">
@@ -106,7 +106,12 @@
 
     </nav>
     <main>
-      <div id="descriptionPara"></div>
+      <div id="descriptionPara">
+        <div id="`firstLineDesc"></div>
+        <div id="`secondLineDesc"></div>
+        <div id="`authorLineDesc"></div>
+        <div id="`dateLineDesc"></div>
+      </div>
       <div id="resultsPara"><p>Fill data to calculate</p></div>
       <div id="arrangeDiv">
           <div id="arrangeMale"></div>
