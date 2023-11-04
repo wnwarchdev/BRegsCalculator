@@ -35,6 +35,7 @@ main {
   text-align: left;
   font-family: "Merriweather", serif;
   padding: 1em;
+  flex-grow: 1;
   #arrangeDiv {
     display: flex;
     justify-content: space-around;
@@ -115,4 +116,9 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .rightMargin {
   text-align: right;
+}
+
+#descriptionPara {
+  margin-bottom: 2em;
+  background-color: rgb(240, 240, 240);
 }

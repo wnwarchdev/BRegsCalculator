@@ -23,13 +23,14 @@ const resultParagraph = document.getElementById("resultsPara");
 const arrangeParagraphMale = document.getElementById("arrangeMale");
 const arrangeParagraphFemale = document.getElementById("arrangeFemale");
 
-const descFirstLine = document.getElementById("firstLine");
-const descSecondLine = document.getElementById("secondLine");
-const descAuthorLine = document.getElementById("authorLine");
-const descDateLine = document.getElementById("dateLine");
+const firstLine = document.getElementById("firstLine");
+const secondLine = document.getElementById("secondLine");
+const authorLine = document.getElementById("authorLine");
+const dateLine = document.getElementById("dateLine");
 const descriptionDiv = document.getElementById("description");
 const descriptionParagraph = document.getElementById("descriptionPara");
-const firstLineCheck = document.getElementById("firstLineCheck");
+//const firstLineCheck = document.getElementById("firstLineCheck");
+const dateLineDesc = document.getElementById("dateLineDesc");
 
 //ADD OCCUPANCYCALCULATOR
 
@@ -97,11 +98,37 @@ function calcItems(num, uri) {
   return result;
 }
 
-function runDesc(idCheck) {
-  console.log(idCheck);
-  idCheck == "firstLineCheck"
-    ? (descriptionParagraph.innerHTML = `<p class='rightMargin' >${now}</p><p>Description line 01</p><p>Description line 01</p><p>calculations by: Author</p> <br>`)
-    : (descriptionParagraph.innerHTML = null);
+function dateFormat(isoDate) {
+  console.log(isoDate);
+  let date = `${isoDate.slice(8, 10)}-${isoDate.slice(5, 7)}-${isoDate.slice(
+    0,
+    4,
+  )}`;
+  console.log(date);
+  return date;
+}
+
+dateLineDesc.innerHTML = `<p>${dateFormat(now)}</p>`;
+
+function runDesc(checkbox) {
+  let checkboxDiv = document.getElementById(`${checkbox.id.slice(0, -5)}Desc`);
+  let checkboxLine = document.getElementById(`${checkbox.id.slice(0, -5)}`);
+
+  if (checkbox.checked == true) {
+    checkboxLine.removeAttribute(`disabled`);
+    checkboxDiv.setAttribute(`style`, `display:block`);
+  } else {
+    checkboxLine.setAttribute(`disabled`, ``);
+    checkboxDiv.setAttribute(`style`, `display:none`);
+  }
+}
+
+function runLine(line) {
+  let lineDiv = document.getElementById(`${line.id}Desc`);
+  lineDiv.innerHTML = null;
+  line.id == `dateLine`
+    ? (lineDiv.innerHTML = `<p>${dateFormat(line.value)}</p>`)
+    : (lineDiv.innerHTML = `<p>${line.value}</p>`);
 }
 
 function runCalcs() {
@@ -213,8 +240,14 @@ controlsDiv.addEventListener("change", (e) => {
 
 descriptionDiv.addEventListener("change", (e) => {
   if (e.target.type == "checkbox") {
-    runDesc(e.target.id);
+    runDesc(e.target);
+  } else if (e.target.type == "text" || "date") {
+    runLine(e.target);
   }
+});
+
+descriptionDiv.addEventListener("keyup", (e) => {
+  runLine(e.target);
 });
 
 //RESET BUTTON
@@ -224,7 +257,6 @@ resetButton.addEventListener("click", function (event) {
 });
 
 pdfButton.addEventListener("click", function () {
-  dateNow();
   const doc = new jsPDF("p", "in", "a4");
 
   doc.setFontSize(11);
@@ -245,5 +277,5 @@ pdfButton.addEventListener("click", function () {
   doc.setLineWidth(1 / 72);
   doc.line(0.5, 0.5, 0.5, 11.25);
   doc.line(7.75, 0.5, 7.75, 11.25);
-  //doc.save("a4.pdf");
+  doc.save("a4.pdf");
 });

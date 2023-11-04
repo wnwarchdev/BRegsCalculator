@@ -29,7 +29,7 @@
         min="1"
         max="9999"
         maxlength="4"
-        value="100"
+        value="0"
         step="1"
         oninput="this.value = Math.round(this.value); this.value=this.value.slice(0,this.maxLength)"
         onpaste="return false;"
@@ -93,10 +93,10 @@
 
     </div>
       <div id="description">
-        <div><p><input type="checkbox" id="firstLineCheck" />Line 1:</p> <input type="text" id="firstLine" autocomplete="off"></div>
-        <div><p><input type="checkbox" id="secondLineCheck" />Line 2:</p> <input type="text" id="secondLine" autocomplete="off"></div>
-        <div><p><input type="checkbox" id="authorLineCheck" />Author:</p> <input type="text" id="authorLine" autocomplete="off"></div>
-        <div><p><input type="checkbox" id="dateLineCheck" />Date:</p> <input type="date" id="dateLine" autocomplete="off" min="1999-01-01" max="2099-01-01" oninput= "this.value>`2099-01-01` ? this.value = `2099-01-01` : this.value"></div>
+        <div><p><input type="checkbox" id="firstLineCheck" />Line 1:</p> <input type="text" id="firstLine" autocomplete="off" disabled maxlength="25" onpaste="return false;"ondrop="return false;"></div>
+        <div><p><input type="checkbox" id="secondLineCheck" />Line 2:</p> <input type="text" id="secondLine" autocomplete="off" disabled maxlength="25" onpaste="return false;"ondrop="return false;"></div>
+        <div><p><input type="checkbox" id="authorLineCheck" />Author:</p> <input type="text" id="authorLine" autocomplete="off" disabled maxlength="25" onpaste="return false;"ondrop="return false;"></div>
+        <div><p><input type="checkbox" id="dateLineCheck" />Date:</p> <input type="date" id="dateLine" autocomplete="off" disabled min="1999-01-01" max="2099-01-01" oninput= "this.value>`2099-01-01` ? this.value = `2099-01-01` : this.value"></div>
       </div>
 
       <div id="buttons">
@@ -107,12 +107,13 @@
     </nav>
     <main>
       <div id="descriptionPara">
-        <div id="`firstLineDesc"></div>
-        <div id="`secondLineDesc"></div>
-        <div id="`authorLineDesc"></div>
-        <div id="`dateLineDesc"></div>
+        <div id="dateLineDesc"class="rightMargin" style="display:none"></div>
+        <div id="firstLineDesc" style="display:none"></div>
+        <div id="secondLineDesc"style="display:none"></div>
+        <div id="authorLineDesc"style="display:none"></div>
+        
       </div>
-      <div id="resultsPara"><p>Fill data to calculate</p></div>
+      <div id="resultsPara"></div>
       <div id="arrangeDiv">
           <div id="arrangeMale"></div>
           <div id="arrangeFemale"></div>
