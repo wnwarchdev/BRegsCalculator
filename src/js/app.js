@@ -9,7 +9,7 @@ document.getElementById("dateLine").value = now;
 
 //ADD BUTTONS
 
-const calcButton = document.getElementById("calcButton");
+const resetButton = document.getElementById("resetButton");
 const pdfButton = document.getElementById("pdfButton");
 
 const urinalCheck = document.getElementById("urinalCheck");
@@ -217,9 +217,10 @@ descriptionDiv.addEventListener("change", (e) => {
   }
 });
 
-calcButton.addEventListener("click", function (event) {
+//RESET BUTTON
+resetButton.addEventListener("click", function (event) {
   event.preventDefault();
-  runCalcs();
+  location.reload();
 });
 
 pdfButton.addEventListener("click", function () {
