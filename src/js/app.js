@@ -31,6 +31,7 @@ const descriptionDiv = document.getElementById("description");
 const descriptionParagraph = document.getElementById("descriptionPara");
 //const firstLineCheck = document.getElementById("firstLineCheck");
 const dateLineDesc = document.getElementById("dateLineDesc");
+const descriptionToggle = document.getElementById("descriptionToggle");
 
 //ADD OCCUPANCYCALCULATOR
 
@@ -145,16 +146,16 @@ function runCalcs() {
 
   resultParagraph.innerHTML = null;
   resultParagraph.innerHTML = `
-  <p>For ${occupancy} occupants, at ${maleRatio}/${femaleRatio} ratio male occupancy number is: ${maleNum} and female occupancy number is: ${femaleNum}</p>
+  <p>For <b>${occupancy}</b> occupants, at ${maleRatio}/${femaleRatio} ratio male occupancy number is: ${maleNum} and female occupancy number is: ${femaleNum}</p>
   <p> Toilet provision based on BS 6465 part1 March 2006, (paragraph 6.4.1, table-${
     uriBool == false ? `3` : `4`
   } ):
     ${
       uriBool == false
-        ? `<p>• Male toilet requires ${maleToilet} WCs and ${maleWashbasin} washbasins</p>`
-        : `<p>• Male toilet requires ${maleToilet} WCs, ${maleUrinal} urinals and ${maleWashbasin} washbasins</p>`
+        ? `<p>• <b>Male</b> toilet requires <b>${maleToilet} WCs</b> and <b>${maleWashbasin} washbasins</b></p>`
+        : `<p>• <b>Male</b> toilet requires <b>${maleToilet} WCs</b>, <b>${maleUrinal} urinals</b> and <b>${maleWashbasin} washbasins</b></p>`
     }
-    <p>• Female toilet requires ${femaleToilet} WCs and ${femaleWashbasin} washbasins</p><br>`;
+    <p>• <b>Female</b> toilet requires <b>${femaleToilet} WCs</b> and <b>${femaleWashbasin} washbasins</b></p><br>`;
 
   arrangeParagraphMale.innerHTML = null;
   arrangeParagraphFemale.innerHTML = null;
@@ -171,7 +172,7 @@ function arranger(number, disSep, sex) {
       arrangement = arrangement.concat(`<p>cubicle ${i}`);
       arrangement =
         i == 1
-          ? arrangement.concat(`: disabled accessible toilet</p> `)
+          ? arrangement.concat(`: DDA toilet</p> `)
           : i == 2
           ? arrangement.concat(`: ambulant disabled</p> `)
           : i == 3
@@ -193,7 +194,7 @@ function arranger(number, disSep, sex) {
           : arrangement.concat(`<p>cubicle ${i - 1}`);
       arrangement =
         i == 1
-          ? arrangement.concat(`: disabled accessible toilet</p> `)
+          ? arrangement.concat(`: DDA toilet</p> `)
           : i == 2
           ? arrangement.concat(`: ambulant disabled</p> `)
           : i == 3
@@ -248,6 +249,11 @@ descriptionDiv.addEventListener("change", (e) => {
 
 descriptionDiv.addEventListener("keyup", (e) => {
   runLine(e.target);
+});
+
+descriptionToggle.addEventListener("click", (e) => {
+  console.log(`clicked`);
+  descriptionDiv.setAttribute("style", "display:block !important");
 });
 
 //RESET BUTTON
