@@ -264,18 +264,13 @@ resetButton.addEventListener("click", function (event) {
 
 pdfButton.addEventListener("click", function () {
   const doc = new jsPDF("p", "in", "a4");
-
+  console.log(descriptionParagraph.innerHTML);
+  console.log(resultParagraph.innerHTML);
   doc.setFontSize(11);
   doc.text(
-    `Based on ${occupancy} occupants, at ${maleRatio}/${femaleRatio} ratio:
-    male occupancy number is: ${maleNum} and
-    female occupancy number is: ${femaleNum}
-    ${
-      uriBool == false
-        ? `male toilet requires ${maleToilet} WCs and ${maleWashbasin} washbasins`
-        : `male toilet requires ${maleToilet} WCs, ${maleUrinal} urinals and ${maleWashbasin} washbasins`
-    }
-    female toilet requires ${femaleToilet} WCs and ${femaleWashbasin} washbasins`,
+    `${descriptionParagraph.innerHTML}
+    ${resultParagraph.innerHTML}
+    `,
     1,
     1,
   );
