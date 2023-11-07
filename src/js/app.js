@@ -264,16 +264,31 @@ resetButton.addEventListener("click", function (event) {
 
 pdfButton.addEventListener("click", function () {
   const doc = new jsPDF("p", "in", "a4");
-  console.log(descriptionParagraph.innerHTML);
-  console.log(resultParagraph.innerHTML);
+  // console.log(descriptionParagraph.innerHTML);
+  // console.log(resultParagraph.innerHTML);
   doc.setFontSize(11);
+  doc.text(`07-11-2023`, 1, 1);
   doc.text(
-    `${descriptionParagraph.innerHTML}
-    ${resultParagraph.innerHTML}
+    `
+    Line 01
+    Line 02
+    Author
+
+
+    For 29 occupants, at 60/60 ratio
+    male occupancy number is: 18
+    female occupancy number is: 18
+
+    Toilet provision based on BS 6465 part1 March 2006, (paragraph 6.4.1, table-3 ):
+
+    • Male toilet requires 3 WCs and 3 washbasins
+    • Female toilet requires 3 WCs and 3 washbasins
     `,
-    1,
-    1,
+    5,
+    5,
+    { align: "center" },
   );
+
   doc.setDrawColor("black");
   doc.setLineWidth(1 / 72);
   doc.line(0.5, 0.5, 0.5, 11.25);
