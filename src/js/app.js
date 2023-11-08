@@ -36,7 +36,7 @@ const descriptionToggle = document.getElementById("descriptionToggle");
 //ADD OCCUPANCYCALCULATOR
 
 let occupancy;
-occupancy = 100;
+occupancy = 0;
 
 //ADD MALENUM AND FEMALENUM VARIABLES
 
@@ -51,6 +51,10 @@ let femaleWashbasin;
 let maleUrinal;
 let uriBool = false;
 let sepBool = false;
+let date;
+let line01;
+let line02;
+let author;
 
 let defaultRatio = 60;
 maleRatio = defaultRatio;
@@ -101,7 +105,7 @@ function calcItems(num, uri) {
 
 function dateFormat(isoDate) {
   console.log(isoDate);
-  let date = `${isoDate.slice(8, 10)}-${isoDate.slice(5, 7)}-${isoDate.slice(
+  date = `${isoDate.slice(8, 10)}-${isoDate.slice(5, 7)}-${isoDate.slice(
     0,
     4,
   )}`;
@@ -267,7 +271,7 @@ pdfButton.addEventListener("click", function () {
   // console.log(descriptionParagraph.innerHTML);
   // console.log(resultParagraph.innerHTML);
   doc.setFontSize(11);
-  doc.text(`07-11-2023`, 1, 1);
+  doc.text(`${date}`, 7.5, 1, { align: "right" });
   doc.text(
     `
     Line 01
@@ -275,23 +279,29 @@ pdfButton.addEventListener("click", function () {
     Author
 
 
-    For 29 occupants, at 60/60 ratio
-    male occupancy number is: 18
-    female occupancy number is: 18
+    For ${occupancy} occupants, at ${maleRatio} male / ${femaleRatio} female ratio:
+    male occupancy number is: ${maleNum}
+    female occupancy number is: ${femaleNum}
 
-    Toilet provision based on BS 6465 part1 March 2006, (paragraph 6.4.1, table-3 ):
+    Toilet provision based on BS 6465 part1 March 2006, (paragraph 6.4.1, table-${
+      uriBool == false ? `3` : `4`
+    } ):
 
-    • Male toilet requires 3 WCs and 3 washbasins
-    • Female toilet requires 3 WCs and 3 washbasins
+    ${
+      uriBool == false
+        ? `• Male toilet requires ${maleToilet} WCs and ${maleWashbasin} washbasins`
+        : `• Male< toilet requires ${maleToilet} WCs, ${maleUrinal} urinals and ${maleWashbasin} washbasins`
+    }
+    • Female toilet requires ${femaleToilet} WCs and ${femaleWashbasin} washbasins
     `,
-    5,
-    5,
-    { align: "center" },
+    0.5,
+    2.5,
   );
 
   doc.setDrawColor("black");
   doc.setLineWidth(1 / 72);
-  doc.line(0.5, 0.5, 0.5, 11.25);
-  doc.line(7.75, 0.5, 7.75, 11.25);
-  doc.save("a4.pdf");
+  //doc.line(0.5, 0.5, 0.5, 11.25);
+  //doc.line(7.75, 0.5, 7.75, 11.25);
+  doc.output("dataurlnewwindow");
+  //doc.save("a4.pdf");
 });
