@@ -29,9 +29,13 @@ const authorLine = document.getElementById("authorLine");
 const dateLine = document.getElementById("dateLine");
 const descriptionDiv = document.getElementById("description");
 const descriptionParagraph = document.getElementById("descriptionPara");
-//const firstLineCheck = document.getElementById("firstLineCheck");
 const dateLineDesc = document.getElementById("dateLineDesc");
 const descriptionToggle = document.getElementById("descriptionToggle");
+
+const firstLineCheck = document.getElementById("firstLineCheck");
+const secondLineCheck = document.getElementById("secondLineCheck");
+const authorLineCheck = document.getElementById("authorLineCheck");
+const dateLineCheck = document.getElementById("dateLineCheck");
 
 //ADD OCCUPANCYCALCULATOR
 
@@ -271,12 +275,12 @@ pdfButton.addEventListener("click", function () {
   // console.log(descriptionParagraph.innerHTML);
   // console.log(resultParagraph.innerHTML);
   doc.setFontSize(11);
-  doc.text(`${date}`, 7.5, 1, { align: "right" });
+  doc.text(`${dateLineCheck.checked ? date : ``}`, 7.5, 1, { align: "right" });
   doc.text(
     `
-    Line 01
-    Line 02
-    Author
+    ${firstLineCheck.checked ? `Line 01` : ``}
+    ${secondLineCheck.checked ? `Line 02` : ``}
+    ${authorLineCheck.checked ? `Author` : ``} 
 
 
     For ${occupancy} occupants, at ${maleRatio} male / ${femaleRatio} female ratio:
