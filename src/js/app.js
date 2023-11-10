@@ -169,6 +169,7 @@ function runCalcs() {
   arrangeParagraphFemale.innerHTML = null;
   arrangeParagraphMale.innerHTML = arranger(maleToilet, sepBool, "Male");
   arrangeParagraphFemale.innerHTML = arranger(femaleToilet, sepBool, "Female");
+  pdfButton.removeAttribute("disabled");
 }
 
 function arranger(number, disSep, sex) {
@@ -278,9 +279,9 @@ pdfButton.addEventListener("click", function () {
   doc.text(`${dateLineCheck.checked ? date : ``}`, 7.5, 1, { align: "right" });
   doc.text(
     `
-    ${firstLineCheck.checked ? `Line 01` : ``}
-    ${secondLineCheck.checked ? `Line 02` : ``}
-    ${authorLineCheck.checked ? `Author` : ``} 
+    ${firstLineCheck.checked ? firstLine.value : ``}
+    ${secondLineCheck.checked ? secondLine.value : ``}
+    ${authorLineCheck.checked ? authorLine.value : ``} 
 
 
     For ${occupancy} occupants, at ${maleRatio} male / ${femaleRatio} female ratio:

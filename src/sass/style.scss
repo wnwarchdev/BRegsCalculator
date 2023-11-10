@@ -74,6 +74,10 @@ button {
   padding: 10px;
 }
 
+button:disabled {
+  background-color: rgb(62, 62, 62);
+}
+
 #buttons {
   display: flex;
   flex-direction: column;
