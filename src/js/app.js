@@ -83,7 +83,11 @@ function calcItems(num, uri) {
         ? [4, 3, 4]
         : num <= 100
         ? [4, 4, 4]
-        : [4, 4 + Math.ceil((num - 100) / 50), 4 + Math.ceil((num - 100) / 50)];
+        : [
+            4 + Math.ceil((num - 100) / 50),
+            4 + Math.ceil((num - 100) / 50),
+            4 + Math.ceil((num - 100) / 50),
+          ];
   } else {
     result =
       num <= 5
@@ -115,6 +119,11 @@ function dateFormat(isoDate) {
   )}`;
   console.log(date);
   return date;
+}
+
+function pluralForm(number) {
+  const result = number == 1 ? `` : `s`;
+  return result;
 }
 
 dateLineDesc.innerHTML = `<p>${dateFormat(now)}</p>`;
@@ -161,7 +170,9 @@ function runCalcs() {
     ${
       uriBool == false
         ? `<p>• <b>Male</b> toilet requires <b>${maleToilet} WCs</b> and <b>${maleWashbasin} washbasins</b></p>`
-        : `<p>• <b>Male</b> toilet requires <b>${maleToilet} WCs</b>, <b>${maleUrinal} urinals</b> and <b>${maleWashbasin} washbasins</b></p>`
+        : `<p>• <b>Male</b> toilet requires <b>${maleToilet} WCs</b>, <b>${maleUrinal} urinal${
+            maleUrinal == 1 ? `` : `s`
+          }</b> and <b>${maleWashbasin} washbasins</b></p>`
     }
     <p>• <b>Female</b> toilet requires <b>${femaleToilet} WCs</b> and <b>${femaleWashbasin} washbasins</b></p><br>`;
 
@@ -275,7 +286,8 @@ pdfButton.addEventListener("click", function () {
   const doc = new jsPDF("p", "in", "a4");
   // console.log(descriptionParagraph.innerHTML);
   // console.log(resultParagraph.innerHTML);
-  doc.setFontSize(11);
+  //console.log(arrangeParagraphMale.innerText);
+  doc.setFontSize(12);
   doc.text(`${dateLineCheck.checked ? date : ``}`, 7.5, 1, { align: "right" });
   doc.text(
     `
@@ -294,19 +306,41 @@ pdfButton.addEventListener("click", function () {
 
     ${
       uriBool == false
-        ? `• Male toilet requires ${maleToilet} WCs and ${maleWashbasin} washbasins`
-        : `• Male< toilet requires ${maleToilet} WCs, ${maleUrinal} urinals and ${maleWashbasin} washbasins`
+        ? `• Male toilet requires ${maleToilet} WC${pluralForm(
+            maleToilet,
+          )} and ${maleWashbasin} washbasin${pluralForm(maleWashbasin)}`
+        : `• Male< toilet requires ${maleToilet} WC${pluralForm(
+            maleToilet,
+          )}, ${maleUrinal} urinal${pluralForm(
+            maleUrinal,
+          )} and ${maleWashbasin} washbasin${pluralForm(maleWashbasin)}`
     }
     • Female toilet requires ${femaleToilet} WCs and ${femaleWashbasin} washbasins
     `,
     0.5,
-    2.5,
+    3,
   );
+  doc.setFontSize(11);
+  doc.text(`Workplace Sanitary Provision Report`, 0.5, 1, { align: "left" });
+  doc.text(`Cubicle types required:`, 0.5, 7.15, { align: "left" });
+  doc.text(`${arrangeParagraphMale.innerText}`, 1.5, 7.8, { align: "left" });
+  doc.text(`${arrangeParagraphFemale.innerText}`, 4.75, 7.8, { align: "left" });
+  doc.text(
+    `calculated with Workplace Sanitary Provision Calculator v1.0.0
+to be cross checked with BS 6465-1:2006+A1:2009`,
+    0.5,
+    11,
+    { align: "left" },
+  );
+  doc.text(`page 1 of 1`, 7.75, 11, { align: "right" });
 
   doc.setDrawColor("black");
   doc.setLineWidth(1 / 72);
   //doc.line(0.5, 0.5, 0.5, 11.25);
   //doc.line(7.75, 0.5, 7.75, 11.25);
+  //Workplace Sanitary Provision Report
+  doc.line(0.5, 10.85, 7.75, 10.85);
+  doc.line(0.5, 7, 7.75, 7);
   doc.output("dataurlnewwindow");
   //doc.save("a4.pdf");
 });
