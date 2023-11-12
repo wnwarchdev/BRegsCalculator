@@ -3,12 +3,19 @@ import { jsPDF } from "jspdf";
 `use strict`;
 
 //ADD DATE
-
 const now = new Date().toISOString().substring(0, 10);
 document.getElementById("dateLine").value = now;
 
-//ADD BUTTONS
+//CHANGE DATE FORMAT TO EUROPEAN
+function dateFormat(isoDate) {
+  date = `${isoDate.slice(8, 10)}-${isoDate.slice(5, 7)}-${isoDate.slice(
+    0,
+    4,
+  )}`;
+  return date;
+}
 
+//ADD BUTTONS
 const resetButton = document.getElementById("resetButton");
 const pdfButton = document.getElementById("pdfButton");
 
@@ -26,9 +33,7 @@ const arrangeParagraphFemale = document.getElementById("arrangeFemale");
 const firstLine = document.getElementById("firstLine");
 const secondLine = document.getElementById("secondLine");
 const authorLine = document.getElementById("authorLine");
-const dateLine = document.getElementById("dateLine");
 const descriptionDiv = document.getElementById("description");
-const descriptionParagraph = document.getElementById("descriptionPara");
 const dateLineDesc = document.getElementById("dateLineDesc");
 const descriptionToggle = document.getElementById("descriptionToggle");
 
@@ -37,13 +42,7 @@ const secondLineCheck = document.getElementById("secondLineCheck");
 const authorLineCheck = document.getElementById("authorLineCheck");
 const dateLineCheck = document.getElementById("dateLineCheck");
 
-//ADD OCCUPANCYCALCULATOR
-
-let occupancy;
-occupancy = 0;
-
-//ADD MALENUM AND FEMALENUM VARIABLES
-
+//ADD VARIABLES
 let maleNum;
 let femaleNum;
 let maleRatio;
@@ -56,14 +55,17 @@ let maleUrinal;
 let uriBool = false;
 let sepBool = false;
 let date;
-let line01;
-let line02;
-let author;
 
+//SET OCCUPANCY
+let occupancy;
+occupancy = 0;
+
+//SET RATIO
 let defaultRatio = 60;
 maleRatio = defaultRatio;
 femaleRatio = defaultRatio;
 
+//ADD FUNCTION THAT RETURNS SPECIFIC RESULT BASED ON GIVEN OCCUPANT NUMBER
 function calcItems(num, uri) {
   let result;
 
@@ -111,23 +113,9 @@ function calcItems(num, uri) {
   return result;
 }
 
-function dateFormat(isoDate) {
-  console.log(isoDate);
-  date = `${isoDate.slice(8, 10)}-${isoDate.slice(5, 7)}-${isoDate.slice(
-    0,
-    4,
-  )}`;
-  console.log(date);
-  return date;
-}
-
-function pluralForm(number) {
-  const result = number == 1 ? `` : `s`;
-  return result;
-}
-
 dateLineDesc.innerHTML = `<p>${dateFormat(now)}</p>`;
 
+//ADD FUNCTION TO CONTROL DESCRIPTION LINES IN DIV
 function runDesc(checkbox) {
   let checkboxDiv = document.getElementById(`${checkbox.id.slice(0, -5)}Desc`);
   let checkboxLine = document.getElementById(`${checkbox.id.slice(0, -5)}`);
@@ -141,6 +129,7 @@ function runDesc(checkbox) {
   }
 }
 
+//ADD FUNCTION TO ADD DESCRIPTION FROM INPUTS TO DIV
 function runLine(line) {
   let lineDiv = document.getElementById(`${line.id}Desc`);
   lineDiv.innerHTML = null;
@@ -149,6 +138,13 @@ function runLine(line) {
     : (lineDiv.innerHTML = `<p>${line.value}</p>`);
 }
 
+//ADD FUNCTION TO INJECT PLURAR SUFFIX TO STRING IF REQUIRED
+function pluralForm(number) {
+  const result = number == 1 ? `` : `s`;
+  return result;
+}
+
+//ADD FUNCTION TO CALCULATE GROUP OCCUPANCIES AND PROVIDE RESULT TEXT TO DIV
 function runCalcs() {
   maleRatio = maleRatioAtt.value;
   femaleRatio = femaleRatioAtt.value;
@@ -169,12 +165,24 @@ function runCalcs() {
   } ):
     ${
       uriBool == false
-        ? `<p>• <b>Male</b> toilet requires <b>${maleToilet} WCs</b> and <b>${maleWashbasin} washbasins</b></p>`
-        : `<p>• <b>Male</b> toilet requires <b>${maleToilet} WCs</b>, <b>${maleUrinal} urinal${
-            maleUrinal == 1 ? `` : `s`
-          }</b> and <b>${maleWashbasin} washbasins</b></p>`
+        ? `<p>• <b>Male</b> toilet requires <b>${maleToilet} WC${pluralForm(
+            maleToilet,
+          )}</b> and <b>${maleWashbasin} washbasin${pluralForm(
+            maleWashbasin,
+          )}</b></p>`
+        : `<p>• <b>Male</b> toilet requires <b>${maleToilet} WC${pluralForm(
+            maleToilet,
+          )}</b>, <b>${maleUrinal} urinal${pluralForm(
+            maleUrinal,
+          )}</b> and <b>${maleWashbasin} washbasin${pluralForm(
+            maleWashbasin,
+          )}</b></p>`
     }
-    <p>• <b>Female</b> toilet requires <b>${femaleToilet} WCs</b> and <b>${femaleWashbasin} washbasins</b></p><br>`;
+    <p>• <b>Female</b> toilet requires <b>${femaleToilet} WC${pluralForm(
+      femaleToilet,
+    )}</b> and <b>${femaleWashbasin} washbasin${pluralForm(
+      femaleWashbasin,
+    )}</b></p><br>`;
 
   arrangeParagraphMale.innerHTML = null;
   arrangeParagraphFemale.innerHTML = null;
@@ -183,10 +191,10 @@ function runCalcs() {
   pdfButton.removeAttribute("disabled");
 }
 
+//ADD FUNCTION TO PROVIDE TEXT TO TOILET ARRANGEMENT DIVS
 function arranger(number, disSep, sex) {
   let arrangement = `<p>${sex} WC cubicle types: <p>`;
   let iterations = number <= 6 ? number : 6;
-  //console.log(iterations);
   for (let i = 1; i <= iterations; i++) {
     if (disSep == false) {
       arrangement = arrangement.concat(`<p>cubicle ${i}`);
@@ -207,7 +215,6 @@ function arranger(number, disSep, sex) {
                 : ` to ${number}: normal cubicle</p> `,
             );
     } else {
-      console.log(i);
       arrangement =
         i == 1
           ? arrangement.concat(`<p>separate`)
@@ -233,6 +240,7 @@ function arranger(number, disSep, sex) {
   return arrangement;
 }
 
+//URINAL USE CHECKBOX FUNCTIONALITY
 urinalCheck.addEventListener("change", function (event) {
   event.preventDefault();
   if (urinalCheck.checked) {
@@ -243,6 +251,7 @@ urinalCheck.addEventListener("change", function (event) {
   runCalcs();
 });
 
+//SEPARATE CUBICLE CHECKBOX FUNCTIONALITY
 separateCheck.addEventListener("change", function (event) {
   event.preventDefault();
   if (separateCheck.checked) {
@@ -253,12 +262,14 @@ separateCheck.addEventListener("change", function (event) {
   runCalcs();
 });
 
+//CALCULATION UPDATE ON TYPING
 controlsDiv.addEventListener("change", (e) => {
   if (e.target.type == "number") {
     runCalcs();
   }
 });
 
+//SHOWING TOGGLED LINES IN DESCRIPTION DIV
 descriptionDiv.addEventListener("change", (e) => {
   if (e.target.type == "checkbox") {
     runDesc(e.target);
@@ -267,64 +278,82 @@ descriptionDiv.addEventListener("change", (e) => {
   }
 });
 
+//DESCRIPTION UPDATE ON TYPING
 descriptionDiv.addEventListener("keyup", (e) => {
-  runLine(e.target);
+  try {
+    runLine(e.target);
+  } catch {
+    console.log(`select line`);
+  }
 });
 
+//SHOW HIDDEN DIV ON CLICK
 descriptionToggle.addEventListener("click", (e) => {
-  console.log(`clicked`);
   descriptionDiv.setAttribute("style", "display:block !important");
 });
 
-//RESET BUTTON
+//RESET BUTTON FUNCTIONALITY
 resetButton.addEventListener("click", function (event) {
   event.preventDefault();
   location.reload();
 });
 
+//PDF BUTTON FUNCTIONALITY
 pdfButton.addEventListener("click", function () {
   const doc = new jsPDF("p", "in", "a4");
-  // console.log(descriptionParagraph.innerHTML);
-  // console.log(resultParagraph.innerHTML);
-  //console.log(arrangeParagraphMale.innerText);
+  const timestamp = Date.now();
+
   doc.setFontSize(12);
+  doc.setFont("Helvetica");
   doc.text(`${dateLineCheck.checked ? date : ``}`, 7.5, 1, { align: "right" });
   doc.text(
     `
-    ${firstLineCheck.checked ? firstLine.value : ``}
-    ${secondLineCheck.checked ? secondLine.value : ``}
-    ${authorLineCheck.checked ? authorLine.value : ``} 
+  ${firstLineCheck.checked ? firstLine.value : ``}
+  ${secondLineCheck.checked ? secondLine.value : ``}
+  ${authorLineCheck.checked ? authorLine.value : ``} 
 
 
-    For ${occupancy} occupants, at ${maleRatio} male / ${femaleRatio} female ratio:
-    male occupancy number is: ${maleNum}
-    female occupancy number is: ${femaleNum}
-
-    Toilet provision based on BS 6465 part1 March 2006, (paragraph 6.4.1, table-${
-      uriBool == false ? `3` : `4`
-    } ):
-
-    ${
-      uriBool == false
-        ? `• Male toilet requires ${maleToilet} WC${pluralForm(
-            maleToilet,
-          )} and ${maleWashbasin} washbasin${pluralForm(maleWashbasin)}`
-        : `• Male< toilet requires ${maleToilet} WC${pluralForm(
-            maleToilet,
-          )}, ${maleUrinal} urinal${pluralForm(
-            maleUrinal,
-          )} and ${maleWashbasin} washbasin${pluralForm(maleWashbasin)}`
-    }
-    • Female toilet requires ${femaleToilet} WCs and ${femaleWashbasin} washbasins
-    `,
-    0.5,
-    3,
+  Estimated occupancy: ${occupancy}
+  Male/Female ratio: ${maleRatio}% / ${femaleRatio}%`,
+    0.8,
+    2,
   );
-  doc.setFontSize(11);
-  doc.text(`Workplace Sanitary Provision Report`, 0.5, 1, { align: "left" });
-  doc.text(`Cubicle types required:`, 0.5, 7.15, { align: "left" });
+  doc.text(
+    `
+  For ${occupancy} occupants, at ${maleRatio}% male / ${femaleRatio}% female ratio:
+
+  • Male occupancy number is: ${maleNum}
+  • Female occupancy number is: ${femaleNum}
+
+  Toilet provision based on BS 6465 part1 March 2006, (paragraph 6.4.1, table-${
+    uriBool == false ? `3` : `4`
+  } ):
+
+  ${
+    uriBool == false
+      ? `• Male toilet requires ${maleToilet} WC${pluralForm(
+          maleToilet,
+        )} and ${maleWashbasin} washbasin${pluralForm(maleWashbasin)}`
+      : `• Male toilet requires ${maleToilet} WC${pluralForm(
+          maleToilet,
+        )}, ${maleUrinal} urinal${pluralForm(
+          maleUrinal,
+        )} and ${maleWashbasin} washbasin${pluralForm(maleWashbasin)}`
+  }
+  • Female toilet requires ${femaleToilet} WC${pluralForm(
+    femaleToilet,
+  )} and ${femaleWashbasin} washbasin${pluralForm(femaleWashbasin)}`,
+    0.8,
+    4.6,
+  );
   doc.text(`${arrangeParagraphMale.innerText}`, 1.5, 7.8, { align: "left" });
   doc.text(`${arrangeParagraphFemale.innerText}`, 4.75, 7.8, { align: "left" });
+  doc.setFontSize(11);
+  doc.setFont("Times", "italic");
+  doc.text(`Workplace Sanitary Provision Report`, 0.5, 0.5, { align: "left" });
+  doc.text(`Calculation result:`, 0.5, 4.15, { align: "left" });
+  doc.text(`Cubicle types required:`, 0.5, 7.15, { align: "left" });
+
   doc.text(
     `calculated with Workplace Sanitary Provision Calculator v1.0.0
 to be cross checked with BS 6465-1:2006+A1:2009`,
@@ -336,11 +365,9 @@ to be cross checked with BS 6465-1:2006+A1:2009`,
 
   doc.setDrawColor("black");
   doc.setLineWidth(1 / 72);
-  //doc.line(0.5, 0.5, 0.5, 11.25);
-  //doc.line(7.75, 0.5, 7.75, 11.25);
-  //Workplace Sanitary Provision Report
   doc.line(0.5, 10.85, 7.75, 10.85);
   doc.line(0.5, 7, 7.75, 7);
-  doc.output("dataurlnewwindow");
-  //doc.save("a4.pdf");
+  doc.line(0.5, 4, 7.75, 4);
+  //doc.output("dataurlnewwindow");
+  doc.save(`Sanitary Provision Report_${date + `_` + timestamp}.pdf`);
 });

@@ -38,7 +38,6 @@ nav {
 main {
   border-color: black;
   border-style: solid;
-  // background-color: yellow;
   text-align: left;
   font-family: "Merriweather", serif;
   padding: 1em;
@@ -166,8 +165,6 @@ input[type="number"]::-webkit-outer-spin-button {
   }
 
   #buttons {
-    // border-style: solid;
-    // border-color: yellow;
     flex-grow: 1;
     margin-top: 1em;
     flex-direction: row;
@@ -225,13 +222,6 @@ input[type="number"]::-webkit-outer-spin-button {
   main {
     font-size: 11px;
   }
-
-  // #ratios {
-  //   #femaleRatio,
-  //   #maleRatio {
-  //     width: 23%;
-  //   }
-  // }
 
   #buttons {
     width: 100%;
