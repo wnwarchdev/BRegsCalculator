@@ -2,3 +2,9 @@ node_modules
 dist
 .parcel-cache
 .DS_Store
+.firebase
+remoteconfig.template.json
+.firebaserc
+database.rules.json
+firebase.json
+n

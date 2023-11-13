@@ -7,7 +7,7 @@
     "start": "parcel index.html",
     "test": "npm-run-all test:*",
     "test:js": "eslint src/js/",
-    "build": "parcel build index.html --dist-dir ./dist"
+    "build": "parcel build index.html --dist-dir ./public"
   },
   "author": "Jonas Schedtmann + Kodilla",
   "license": "ISC",
@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
+    "firebase": "^10.6.0",
     "fractional": "^1.0.0",
     "jspdf": "^2.5.1",
     "normalize-scss": "^7.0.1",
