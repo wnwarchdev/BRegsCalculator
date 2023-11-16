@@ -29,6 +29,7 @@ const occNumAtt = document.getElementById("occNum");
 const resultParagraph = document.getElementById("resultsPara");
 const arrangeParagraphMale = document.getElementById("arrangeMale");
 const arrangeParagraphFemale = document.getElementById("arrangeFemale");
+const arrangeParagraphDDA = document.getElementById("arrangeDDA");
 
 const firstLine = document.getElementById("firstLine");
 const secondLine = document.getElementById("secondLine");
@@ -214,6 +215,7 @@ function arranger(number, disSep, sex) {
                 ? `: normal cubicle</p> `
                 : ` to ${number}: normal cubicle</p> `,
             );
+      arrangeParagraphDDA.classList.add("invisible");
     } else {
       arrangement =
         i == 1
@@ -235,6 +237,7 @@ function arranger(number, disSep, sex) {
                 ? `: normal cubicle</p> `
                 : ` to ${number}: normal cubicle</p> `,
             );
+      arrangeParagraphDDA.classList.remove("invisible");
     }
   }
   return arrangement;
