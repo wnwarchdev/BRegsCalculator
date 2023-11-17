@@ -183,7 +183,12 @@ function runCalcs() {
       femaleToilet,
     )}</b> and <b>${femaleWashbasin} washbasin${pluralForm(
       femaleWashbasin,
-    )}</b></p><br>`;
+    )}</b></p><br>
+    ${
+      sepBool == true
+        ? `<p>Together with <b>additional separate unisex DDA</b> toilet, required cubicle types are:</p>`
+        : `With DDA toilets included into the same-sex toilet blocks, required arrangement is:`
+    }`;
 
   arrangeParagraphMale.innerHTML = null;
   arrangeParagraphFemale.innerHTML = null;
