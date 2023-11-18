@@ -59,7 +59,7 @@ let date;
 
 //SET OCCUPANCY
 let occupancy;
-occupancy = 0;
+occupancy = 100;
 
 //SET RATIO
 let defaultRatio = 60;
@@ -160,7 +160,7 @@ function runCalcs() {
 
   resultParagraph.innerHTML = null;
   resultParagraph.innerHTML = `
-  <p>For <b>${occupancy}</b> occupants, at ${maleRatio}/${femaleRatio} ratio male occupancy number is: ${maleNum} and female occupancy number is: ${femaleNum}</p>
+  <p>For <b>${occupancy}</b> occupants at a single floor, at ${maleRatio}/${femaleRatio} ratio male occupancy number is: ${maleNum} and female occupancy number is: ${femaleNum}</p>
   <p> Toilet provision based on BS 6465 part1 March 2006, (paragraph 6.4.1, table-${
     uriBool == false ? `3` : `4`
   } ):
@@ -186,8 +186,8 @@ function runCalcs() {
     )}</b></p><br>
     ${
       sepBool == true
-        ? `<p>Together with <b>additional separate unisex DDA</b> toilet, required cubicle types are:</p>`
-        : `With DDA toilets included into the same-sex toilet blocks, required arrangement is:`
+        ? `<p>Together with <b>unisex DDA</b> toilet separate from the main toilet block(s), required cubicle types are:</p>`
+        : `<p>With <b>DDA toilets included</b> into the same-sex toilet blocks, required cubicle types are:</p>`
     }`;
 
   arrangeParagraphMale.innerHTML = null;
