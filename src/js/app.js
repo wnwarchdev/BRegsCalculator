@@ -160,6 +160,8 @@ function runCalcs() {
 
   resultParagraph.innerHTML = null;
   resultParagraph.innerHTML = `
+  <p>Disclaimer: Calculations and results are indicative only; To be cross checked with relevant documents</p>
+  <br>
   <p>For <b>${occupancy}</b> occupants at a single floor, at ${maleRatio}/${femaleRatio} ratio male occupancy number is: ${maleNum} and female occupancy number is: ${femaleNum}</p>
   <p> Toilet provision based on BS 6465 part1 March 2006, (paragraph 6.4.1, table-${
     uriBool == false ? `3` : `4`
@@ -186,8 +188,8 @@ function runCalcs() {
     )}</b></p><br>
     ${
       sepBool == true
-        ? `<p>Together with <b>unisex DDA</b> toilet separate from the main toilet block(s), required cubicle types are:</p>`
-        : `<p>With <b>DDA toilets included</b> into the same-sex toilet blocks, required cubicle types are:</p>`
+        ? `<p>With unisex<b> wheelchair-accessible toilet separated</b>  from the main toilet block(s), required cubicle types are:</p>`
+        : `<p>With <b>wheelchair-accessible cubicles included</b> into the same-sex toilet blocks, required cubicle types are:</p>`
     }`;
 
   arrangeParagraphMale.innerHTML = null;
@@ -199,48 +201,46 @@ function runCalcs() {
 
 //ADD FUNCTION TO PROVIDE TEXT TO TOILET ARRANGEMENT DIVS
 function arranger(number, disSep, sex) {
-  let arrangement = `<p>${sex} WC cubicle types: <p>`;
-  let iterations = number <= 6 ? number : 6;
+  let arrangement = `<p>${sex} toilet block:<p>`;
+  let iterations = number <= 5 ? number : 5;
   for (let i = 1; i <= iterations; i++) {
     if (disSep == false) {
       arrangement = arrangement.concat(`<p>cubicle ${i}`);
       arrangement =
         i == 1
-          ? arrangement.concat(`: DDA toilet</p> `)
+          ? arrangement.concat(`: wheelchair-accessible</p> `)
           : i == 2
-          ? arrangement.concat(`: ambulant disabled</p> `)
+          ? arrangement.concat(`: ambulant</p> `)
           : i == 3
-          ? arrangement.concat(`: normal cubicle</p> `)
+          ? arrangement.concat(`: normal</p> `)
           : i == 4
-          ? arrangement.concat(`: enlarged cubicle</p> `)
-          : i == 5
-          ? arrangement.concat(`: normal cubicle</p> `)
-          : arrangement.concat(
-              number == 6
-                ? `: normal cubicle</p> `
-                : ` to ${number}: normal cubicle</p> `,
+          ? arrangement.concat(`: enlarged</p> `)
+          : // : i == 5
+            // ? arrangement.concat(`: normal cubicle</p> `)
+            arrangement.concat(
+              number == 5 ? `: normal cubicle</p> ` : `-${number}: normal</p> `,
             );
       arrangeParagraphDDA.classList.add("invisible");
     } else {
+      arrangement = arrangement.concat(`<p>cubicle ${i}`);
+      //   i == 1
+      //     ? arrangement.concat(`<p>separate`)
+      //     : arrangement.concat(`<p>cubicle ${i - 1}`);
       arrangement =
+        // i == 1
+        //   ? arrangement.concat(`: DDA toilet</p> `)
         i == 1
-          ? arrangement.concat(`<p>separate`)
-          : arrangement.concat(`<p>cubicle ${i - 1}`);
-      arrangement =
-        i == 1
-          ? arrangement.concat(`: DDA toilet</p> `)
+          ? arrangement.concat(`: ambulant</p> `)
           : i == 2
-          ? arrangement.concat(`: ambulant disabled</p> `)
+          ? arrangement.concat(`: normal</p> `)
           : i == 3
-          ? arrangement.concat(`: normal cubicle</p> `)
+          ? arrangement.concat(`: normal</p> `)
           : i == 4
-          ? arrangement.concat(`: normal cubicle</p> `)
-          : i == 5
-          ? arrangement.concat(`: enlarged cubicle</p> `)
-          : arrangement.concat(
-              number == 6
-                ? `: normal cubicle</p> `
-                : ` to ${number}: normal cubicle</p> `,
+          ? arrangement.concat(`: enlarged</p> `)
+          : // : i == 5
+            // ? arrangement.concat(`: normal cubicle</p> `)
+            arrangement.concat(
+              number == 5 ? `: normal</p> ` : `-${number}: normal</p> `,
             );
       arrangeParagraphDDA.classList.remove("invisible");
     }
