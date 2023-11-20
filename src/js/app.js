@@ -320,22 +320,32 @@ pdfButton.addEventListener("click", function () {
   ${secondLineCheck.checked ? secondLine.value : ``}
   ${authorLineCheck.checked ? authorLine.value : ``} 
 
-
-  Estimated occupancy: ${occupancy}
-  Male/Female ratio: ${maleRatio}% / ${femaleRatio}%`,
+  
+  • Estimated occupancy: ${occupancy}
+  • Male/Female ratio: ${maleRatio}% / ${femaleRatio}%
+  ${
+    uriBool == true
+      ? "• Urinals to be used in the male toilet"
+      : "• Male toilets do not use urinals"
+  }
+  ${
+    sepBool == true
+      ? "• Wheelchair-accessible toilet is separate from same-sex toilet blocks"
+      : "• Same-sex toilet blocks to have wheelchair accesible cubicles"
+  }`,
     0.8,
-    2,
+    1.8,
   );
   doc.text(
     `
-  For ${occupancy} occupants, at ${maleRatio}% male / ${femaleRatio}% female ratio:
+    For ${occupancy} occupants at a single floor, at ${maleRatio}/${femaleRatio} ratio:
 
   • Male occupancy number is: ${maleNum}
   • Female occupancy number is: ${femaleNum}
 
   Toilet provision based on BS 6465 part1 March 2006, (paragraph 6.4.1, table-${
     uriBool == false ? `3` : `4`
-  } ):
+  }):
 
   ${
     uriBool == false
@@ -354,17 +364,31 @@ pdfButton.addEventListener("click", function () {
     0.8,
     4.6,
   );
-  doc.text(`${arrangeParagraphMale.innerText}`, 1.5, 7.8, { align: "left" });
-  doc.text(`${arrangeParagraphFemale.innerText}`, 4.75, 7.8, { align: "left" });
+
+  if (sepBool == false) {
+    doc.text(`${arrangeParagraphMale.innerText}`, 1.5, 7.8, { align: "left" });
+    doc.text(`${arrangeParagraphFemale.innerText}`, 4.75, 7.8, {
+      align: "left",
+    });
+  } else {
+    doc.text(`${arrangeParagraphDDA.innerText}`, 1, 7.8, { align: "left" });
+    doc.text(`${arrangeParagraphMale.innerText}`, 3.1, 7.8, { align: "left" });
+    doc.text(`${arrangeParagraphFemale.innerText}`, 5.2, 7.8, {
+      align: "left",
+    });
+  }
+
   doc.setFontSize(11);
   doc.setFont("Times", "italic");
   doc.text(`Workplace Sanitary Provision Report`, 0.5, 0.5, { align: "left" });
+  doc.text(`Variables:`, 0.5, 2.65, { align: "left" });
   doc.text(`Calculation result:`, 0.5, 4.15, { align: "left" });
   doc.text(`Cubicle types required:`, 0.5, 7.15, { align: "left" });
 
   doc.text(
-    `calculated with Workplace Sanitary Provision Calculator v1.0.0
-to be cross checked with BS 6465-1:2006+A1:2009`,
+    `calculated with Workplace Sanitary Provision Calculator v1.1.0 beta
+to be cross checked with BS 6465-1:2006+A1:2009, and other relevant documents
+for educational purposes only`,
     0.5,
     11,
     { align: "left" },
@@ -376,6 +400,7 @@ to be cross checked with BS 6465-1:2006+A1:2009`,
   doc.line(0.5, 10.85, 7.75, 10.85);
   doc.line(0.5, 7, 7.75, 7);
   doc.line(0.5, 4, 7.75, 4);
-  //doc.output("dataurlnewwindow");
-  doc.save(`Sanitary Provision Report_${date + `_` + timestamp}.pdf`);
+  doc.line(0.5, 2.5, 7.75, 2.5);
+  doc.output("dataurlnewwindow");
+  //doc.save(`Sanitary Provision Report_${date + `_` + timestamp}.pdf`);
 });

@@ -51,6 +51,8 @@ main {
 footer {
   margin-top: auto;
   color: gray;
+  display: flex;
+  justify-content: space-between;
 }
 
 h1 {
@@ -157,7 +159,7 @@ input[type="number"]::-webkit-outer-spin-button {
   body {
     max-width: 550px;
     height: 100%;
-    overflow-y: hidden;
+    //overflow-y: hidden;
   }
 
   nav {
