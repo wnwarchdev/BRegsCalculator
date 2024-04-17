@@ -401,6 +401,6 @@ for educational purposes only`,
   doc.line(0.5, 7, 7.75, 7);
   doc.line(0.5, 4, 7.75, 4);
   doc.line(0.5, 2.5, 7.75, 2.5);
-  //doc.output("dataurlnewwindow");
+  doc.output("dataurlnewwindow");
   doc.save(`Sanitary Provision Report_${date + `_` + timestamp}.pdf`);
 });
